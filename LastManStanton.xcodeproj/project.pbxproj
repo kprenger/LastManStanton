@@ -8,20 +8,30 @@
 
 /* Begin PBXBuildFile section */
 		F8A2558E1BF3D2F90045C482 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A2558D1BF3D2F90045C482 /* AppDelegate.swift */; };
-		F8A255901BF3D2F90045C482 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A2558F1BF3D2F90045C482 /* ViewController.swift */; };
+		F8A255901BF3D2F90045C482 /* MovieListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A2558F1BF3D2F90045C482 /* MovieListViewController.swift */; };
 		F8A255931BF3D2F90045C482 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F8A255911BF3D2F90045C482 /* Main.storyboard */; };
 		F8A255951BF3D2F90045C482 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F8A255941BF3D2F90045C482 /* Assets.xcassets */; };
 		F8A255981BF3D2F90045C482 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F8A255961BF3D2F90045C482 /* LaunchScreen.storyboard */; };
+		F8D7E6731BF3E183009772C7 /* APIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8D7E6721BF3E183009772C7 /* APIManager.swift */; };
+		F8D7E6751BF3FFCF009772C7 /* Movie.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8D7E6741BF3FFCF009772C7 /* Movie.swift */; };
+		F8D7E6771BFA8838009772C7 /* Person.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8D7E6761BFA8838009772C7 /* Person.swift */; };
+		FB2640283882B67850221F04 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B6D92F14FC681812FC7B7E4D /* Pods.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		16053C1CE6D6CCA6FDE715D2 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
+		84275FE9D9333421DA8929C2 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		B6D92F14FC681812FC7B7E4D /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F8A2558A1BF3D2F90045C482 /* LastManStanton.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LastManStanton.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F8A2558D1BF3D2F90045C482 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		F8A2558F1BF3D2F90045C482 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		F8A2558F1BF3D2F90045C482 /* MovieListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieListViewController.swift; sourceTree = "<group>"; };
 		F8A255921BF3D2F90045C482 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		F8A255941BF3D2F90045C482 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F8A255971BF3D2F90045C482 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F8A255991BF3D2F90045C482 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F8D7E6721BF3E183009772C7 /* APIManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIManager.swift; sourceTree = "<group>"; };
+		F8D7E6741BF3FFCF009772C7 /* Movie.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Movie.swift; sourceTree = "<group>"; };
+		F8D7E6761BFA8838009772C7 /* Person.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Person.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -29,17 +39,37 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FB2640283882B67850221F04 /* Pods.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4C99671BCEE159D26BB7958B /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				B6D92F14FC681812FC7B7E4D /* Pods.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		82937BB843134C7898FFAC50 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				84275FE9D9333421DA8929C2 /* Pods.debug.xcconfig */,
+				16053C1CE6D6CCA6FDE715D2 /* Pods.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		F8A255811BF3D2F90045C482 = {
 			isa = PBXGroup;
 			children = (
 				F8A2558C1BF3D2F90045C482 /* LastManStanton */,
 				F8A2558B1BF3D2F90045C482 /* Products */,
+				4C99671BCEE159D26BB7958B /* Frameworks */,
+				82937BB843134C7898FFAC50 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -55,11 +85,14 @@
 			isa = PBXGroup;
 			children = (
 				F8A2558D1BF3D2F90045C482 /* AppDelegate.swift */,
-				F8A2558F1BF3D2F90045C482 /* ViewController.swift */,
+				F8A2558F1BF3D2F90045C482 /* MovieListViewController.swift */,
 				F8A255911BF3D2F90045C482 /* Main.storyboard */,
 				F8A255941BF3D2F90045C482 /* Assets.xcassets */,
 				F8A255961BF3D2F90045C482 /* LaunchScreen.storyboard */,
 				F8A255991BF3D2F90045C482 /* Info.plist */,
+				F8D7E6721BF3E183009772C7 /* APIManager.swift */,
+				F8D7E6741BF3FFCF009772C7 /* Movie.swift */,
+				F8D7E6761BFA8838009772C7 /* Person.swift */,
 			);
 			path = LastManStanton;
 			sourceTree = "<group>";
@@ -74,6 +107,7 @@
 				F8A255861BF3D2F90045C482 /* Sources */,
 				F8A255871BF3D2F90045C482 /* Frameworks */,
 				F8A255881BF3D2F90045C482 /* Resources */,
+				CDF0D45A80AB7680DE3F8550 /* Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -130,12 +164,33 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		CDF0D45A80AB7680DE3F8550 /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		F8A255861BF3D2F90045C482 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F8A255901BF3D2F90045C482 /* ViewController.swift in Sources */,
+				F8D7E6771BFA8838009772C7 /* Person.swift in Sources */,
+				F8D7E6731BF3E183009772C7 /* APIManager.swift in Sources */,
+				F8A255901BF3D2F90045C482 /* MovieListViewController.swift in Sources */,
+				F8D7E6751BF3FFCF009772C7 /* Movie.swift in Sources */,
 				F8A2558E1BF3D2F90045C482 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -247,6 +302,7 @@
 		};
 		F8A2559D1BF3D2F90045C482 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 84275FE9D9333421DA8929C2 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = LastManStanton/Info.plist;
@@ -258,6 +314,7 @@
 		};
 		F8A2559E1BF3D2F90045C482 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 16053C1CE6D6CCA6FDE715D2 /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = LastManStanton/Info.plist;
@@ -286,6 +343,7 @@
 				F8A2559E1BF3D2F90045C482 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
