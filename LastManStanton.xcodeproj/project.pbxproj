@@ -15,6 +15,8 @@
 		F8D7E6731BF3E183009772C7 /* APIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8D7E6721BF3E183009772C7 /* APIManager.swift */; };
 		F8D7E6751BF3FFCF009772C7 /* Movie.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8D7E6741BF3FFCF009772C7 /* Movie.swift */; };
 		F8D7E6771BFA8838009772C7 /* Person.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8D7E6761BFA8838009772C7 /* Person.swift */; };
+		F8D7E6791BFA91B0009772C7 /* ActorSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8D7E6781BFA91AF009772C7 /* ActorSearchViewController.swift */; };
+		F8D7E67B1BFA9200009772C7 /* StartGameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8D7E67A1BFA9200009772C7 /* StartGameViewController.swift */; };
 		FB2640283882B67850221F04 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B6D92F14FC681812FC7B7E4D /* Pods.framework */; };
 /* End PBXBuildFile section */
 
@@ -32,6 +34,8 @@
 		F8D7E6721BF3E183009772C7 /* APIManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIManager.swift; sourceTree = "<group>"; };
 		F8D7E6741BF3FFCF009772C7 /* Movie.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Movie.swift; sourceTree = "<group>"; };
 		F8D7E6761BFA8838009772C7 /* Person.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Person.swift; sourceTree = "<group>"; };
+		F8D7E6781BFA91AF009772C7 /* ActorSearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActorSearchViewController.swift; sourceTree = "<group>"; };
+		F8D7E67A1BFA9200009772C7 /* StartGameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StartGameViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,16 +89,42 @@
 			isa = PBXGroup;
 			children = (
 				F8A2558D1BF3D2F90045C482 /* AppDelegate.swift */,
-				F8A2558F1BF3D2F90045C482 /* MovieListViewController.swift */,
+				F8D7E67F1BFA97FD009772C7 /* Utilities */,
+				F8D7E67D1BFA96D0009772C7 /* ViewControllers */,
+				F8D7E67E1BFA96D8009772C7 /* Models */,
 				F8A255911BF3D2F90045C482 /* Main.storyboard */,
-				F8A255941BF3D2F90045C482 /* Assets.xcassets */,
 				F8A255961BF3D2F90045C482 /* LaunchScreen.storyboard */,
+				F8A255941BF3D2F90045C482 /* Assets.xcassets */,
 				F8A255991BF3D2F90045C482 /* Info.plist */,
-				F8D7E6721BF3E183009772C7 /* APIManager.swift */,
+			);
+			path = LastManStanton;
+			sourceTree = "<group>";
+		};
+		F8D7E67D1BFA96D0009772C7 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				F8D7E6781BFA91AF009772C7 /* ActorSearchViewController.swift */,
+				F8A2558F1BF3D2F90045C482 /* MovieListViewController.swift */,
+				F8D7E67A1BFA9200009772C7 /* StartGameViewController.swift */,
+			);
+			name = ViewControllers;
+			sourceTree = "<group>";
+		};
+		F8D7E67E1BFA96D8009772C7 /* Models */ = {
+			isa = PBXGroup;
+			children = (
 				F8D7E6741BF3FFCF009772C7 /* Movie.swift */,
 				F8D7E6761BFA8838009772C7 /* Person.swift */,
 			);
-			path = LastManStanton;
+			name = Models;
+			sourceTree = "<group>";
+		};
+		F8D7E67F1BFA97FD009772C7 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				F8D7E6721BF3E183009772C7 /* APIManager.swift */,
+			);
+			name = Utilities;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -187,6 +217,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F8D7E67B1BFA9200009772C7 /* StartGameViewController.swift in Sources */,
+				F8D7E6791BFA91B0009772C7 /* ActorSearchViewController.swift in Sources */,
 				F8D7E6771BFA8838009772C7 /* Person.swift in Sources */,
 				F8D7E6731BF3E183009772C7 /* APIManager.swift in Sources */,
 				F8A255901BF3D2F90045C482 /* MovieListViewController.swift in Sources */,

@@ -17,8 +17,13 @@ class Movie: Mappable {
     var originalTitle: String?
     var releaseDate: NSDate?
     var posterImagePath: String?
+    var job: String?
     
     required init(_ map: Map) {
+        
+    }
+    
+    init () {
         
     }
     
@@ -47,6 +52,7 @@ class Movie: Mappable {
         originalTitle <- map["original_title"]
         releaseDate <- (map["release_date"], dateTransform)
         posterImagePath <- map["poster_path"]
+        job <- map["job"]
     }
     
 }
