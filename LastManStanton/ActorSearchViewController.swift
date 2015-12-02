@@ -15,6 +15,8 @@ class ActorSearchViewController: UIViewController {
     
     internal var isSuggestion = false
     
+    let searchController = UISearchController(searchResultsController: nil)
+    
     var personArray = [Person]()
     var selectedPerson = Person()
     
@@ -27,8 +29,6 @@ class ActorSearchViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let searchController = UISearchController(searchResultsController: nil)
-        
         searchController.searchResultsUpdater = self
         searchController.dimsBackgroundDuringPresentation = false
         
@@ -38,7 +38,12 @@ class ActorSearchViewController: UIViewController {
         } else {
             APIManager.sharedInstance.getPopularPersons { (personArray) -> Void in
                 self.personArray = personArray as! [Person]
-                self.personTableView.reloadData()
+                
+                if (self.personArray.count == 0) {
+                    self.showNoDataAlert()
+                } else {
+                    self.personTableView.reloadData()
+                }
             }
         }
     }
@@ -46,7 +51,12 @@ class ActorSearchViewController: UIViewController {
     func findPersonsForSearchText(searchText: String) {
         APIManager.sharedInstance.getPersonFromQuery(searchText) { (personArray) -> Void in
             self.personArray = personArray as! [Person]
-            self.personTableView.reloadData()
+            
+            if (self.personArray.count == 0 && searchText != "") {
+                self.showNoDataAlert()
+            } else {
+                self.personTableView.reloadData()
+            }
         }
     }
     
@@ -84,12 +94,10 @@ extension ActorSearchViewController: UITableViewDelegate {
     }
 }
 
-extension ActorSearchViewController: UISearchControllerDelegate {
-    
-}
-
 extension ActorSearchViewController: UISearchResultsUpdating {
     func updateSearchResultsForSearchController(searchController: UISearchController) {
-        findPersonsForSearchText(searchController.searchBar.text!)
+        if (searchController.active) {
+            findPersonsForSearchText(searchController.searchBar.text!)
+        }
     }
 }

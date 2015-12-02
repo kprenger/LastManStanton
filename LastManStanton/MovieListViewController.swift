@@ -29,7 +29,12 @@ class MovieListViewController: UIViewController {
                 movieArray.removeAtIndex(index)
             }
             
-            movieTableView.reloadData()
+            movieTableView.beginUpdates()
+            movieTableView.deleteRowsAtIndexPaths([NSIndexPath(forRow: 0, inSection: 1)], withRowAnimation: .Left)
+            movieTableView.insertRowsAtIndexPaths([NSIndexPath(forRow: correctGuesses.count - 1, inSection: 0)], withRowAnimation: .Left)
+            movieTableView.endUpdates()
+        } else {
+            
         }
         
         guessTextField.resignFirstResponder()
@@ -47,10 +52,14 @@ class MovieListViewController: UIViewController {
         
         APIManager.sharedInstance.getMoviesForPerson(selectedPerson.id!, completion: { (movieArray) -> Void in
             self.movieArray = movieArray as! [Movie]
-            self.movieTableView.reloadData()
             
-            self.movieTotal = self.movieArray.count
-            self.foundMoviesLabel.text = "Found " + String(self.movieTotal) + " movies for " + self.selectedPerson.name!
+            if (self.movieArray.count == 0) {
+                self.showNoDataAlert()
+            } else {
+                self.movieTableView.reloadData()
+                self.movieTotal = self.movieArray.count
+                self.foundMoviesLabel.text = "Found " + String(self.movieTotal) + " movies for " + self.selectedPerson.name!
+            }
         })
     }
     
