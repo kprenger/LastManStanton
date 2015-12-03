@@ -21,6 +21,10 @@ class OptionsInfoViewController: UIViewController {
     @IBOutlet weak var guessTimeLimitLabel: UILabel!
     @IBOutlet weak var fuzzySearchLevelLabel: UILabel!
     
+    @IBOutlet weak var numberOfPlayersStepper: UIStepper!
+    @IBOutlet weak var guessTimeLimitStepper: UIStepper!
+    @IBOutlet weak var fuzzySearchLevelStepper: UIStepper!
+    
     @IBAction func numberOfPlayersChanged(sender: UIStepper) {
         numberOfPlayers = Int(sender.value)
         updateLabels()
@@ -49,6 +53,10 @@ class OptionsInfoViewController: UIViewController {
         numberOfPlayers = plist[Constants.numberOfPlayersString] as! Int
         guessTimeLimit = plist[Constants.guessTimeLimitString] as! Int
         fuzzySearchLevel = plist[Constants.fuzzySearchLevelString] as! Int
+        
+        numberOfPlayersStepper.value = Double(numberOfPlayers)
+        guessTimeLimitStepper.value = Double(guessTimeLimit)
+        fuzzySearchLevelStepper.value = Double(fuzzySearchLevel)
         
         updateLabels()
     }

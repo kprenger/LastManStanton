@@ -21,11 +21,9 @@ class ActorSearchViewController: UIViewController {
     var selectedPerson = Person()
     
     @IBOutlet weak var personTableView: UITableView!
-    
-    @IBAction func closeButtonTouched(sender: AnyObject) {
-        dismissViewControllerAnimated(true, completion: {})
-    }
 
+    //MARK - Lifecycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -48,6 +46,15 @@ class ActorSearchViewController: UIViewController {
         }
     }
     
+    deinit {
+        //Used to prevent a warning from occurring about dealloc'ing the VC with 
+        //search controller still in place
+        //
+        self.searchController.view.removeFromSuperview()
+    }
+    
+    //MARK - Search function
+    
     func findPersonsForSearchText(searchText: String) {
         APIManager.sharedInstance.getPersonFromQuery(searchText) { (personArray) -> Void in
             self.personArray = personArray as! [Person]
@@ -60,6 +67,8 @@ class ActorSearchViewController: UIViewController {
         }
     }
     
+    //MARK - Segues
+    
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if (segue.identifier == movieListSegueID) {
             let movieListController = segue.destinationViewController as! MovieListViewController
@@ -68,7 +77,15 @@ class ActorSearchViewController: UIViewController {
             super.prepareForSegue(segue, sender: sender)
         }
     }
+    
+    //MARK - Button touches
+    
+    @IBAction func closeButtonTouched(sender: AnyObject) {
+        dismissViewControllerAnimated(true, completion: {})
+    }
 }
+
+//MARK - TableView Data Source
 
 extension ActorSearchViewController: UITableViewDataSource {
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -85,6 +102,8 @@ extension ActorSearchViewController: UITableViewDataSource {
     }
 }
 
+//MARK - TableView Delegate
+
 extension ActorSearchViewController: UITableViewDelegate {
     func tableView(tableView: UITableView, willSelectRowAtIndexPath indexPath: NSIndexPath) -> NSIndexPath? {
         let person = personArray[indexPath.row]
@@ -93,6 +112,8 @@ extension ActorSearchViewController: UITableViewDelegate {
         return indexPath
     }
 }
+
+//MARK - Search Results controller
 
 extension ActorSearchViewController: UISearchResultsUpdating {
     func updateSearchResultsForSearchController(searchController: UISearchController) {

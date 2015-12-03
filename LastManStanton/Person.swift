@@ -19,6 +19,7 @@ class Person: Mappable {
     var deathday: NSDate?
     var birthPlace: String?
     var popularity: Float?
+    var knownFor: [Movie]?
     
     required init(_ map: Map) {
         
@@ -29,32 +30,15 @@ class Person: Mappable {
     }
     
     func mapping(map: Map) {
-        let dateTransform = TransformOf<NSDate, String>(fromJSON: { (value: String?) -> NSDate? in
-            let dateFormatter = NSDateFormatter()
-            dateFormatter.dateFormat = "yyyy-MM-dd"
-            
-            if let value = value {
-                return dateFormatter.dateFromString(value)
-            }
-            return nil
-            }, toJSON: { (value: NSDate?) -> String? in
-                if let value = value {
-                    let dateFormatter = NSDateFormatter()
-                    dateFormatter.dateFormat = "yyyy-MM-dd"
-                    
-                    return dateFormatter.stringFromDate(value)
-                }
-                return nil
-        })
-        
         id <- map["id"]
         name <- map["name"]
         biography <- map["biography"]
         profileImagePath <- map["profile_path"]
-        birthday <- (map["birthday"], dateTransform)
-        deathday <- (map["deathday"], dateTransform)
+        birthday <- (map["birthday"], Constants.dateTransform)
+        deathday <- (map["deathday"], Constants.dateTransform)
         birthPlace <- map["place_of_birth"]
         popularity <- map["popularity"]
+        knownFor <- map["known_for"]
     }
     
 }

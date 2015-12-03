@@ -128,7 +128,7 @@
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minimumValue="1" maximumValue="100" translatesAutoresizingMaskIntoConstraints="NO" id="yH1-QH-rFx">
+                            <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="2" minimumValue="2" maximumValue="100" translatesAutoresizingMaskIntoConstraints="NO" id="yH1-QH-rFx">
                                 <rect key="frame" x="361" y="71" width="94" height="29"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="94" id="LZI-VT-VoC"/>
@@ -178,7 +178,7 @@
                                     <action selector="fuzzySearchLevelChanged:" destination="Ds5-kB-oeE" eventType="valueChanged" id="UEt-ah-l1M"/>
                                 </connections>
                             </stepper>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f18-Eb-ZqW">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f18-Eb-ZqW">
                                 <rect key="frame" x="311" y="75" width="42" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="4lE-W5-G8h"/>
@@ -258,8 +258,11 @@
                     </view>
                     <connections>
                         <outlet property="fuzzySearchLevelLabel" destination="u1d-jO-qwT" id="NAe-dA-GcC"/>
+                        <outlet property="fuzzySearchLevelStepper" destination="CaF-c6-JaE" id="wYf-90-hPb"/>
                         <outlet property="guessTimeLimitLabel" destination="ubN-ia-222" id="AZ0-n6-QFX"/>
+                        <outlet property="guessTimeLimitStepper" destination="N1N-jk-8fi" id="AnT-oY-vvf"/>
                         <outlet property="numberOfPlayersLabel" destination="f18-Eb-ZqW" id="WYI-j7-pMv"/>
+                        <outlet property="numberOfPlayersStepper" destination="yH1-QH-rFx" id="Mum-KQ-eRc"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zfE-FJ-b6Z" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -409,7 +412,8 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="1ir-xy-Uuh" kind="unwind" unwindAction="startOver:" id="wcm-6H-7NO"/>
+                                    <action selector="closeButtonTouched:" destination="BYZ-38-t0r" eventType="touchUpInside" id="qhR-4t-k8F"/>
+                                    <segue destination="1ir-xy-Uuh" kind="unwind" identifier="startOverSegue" unwindAction="startOver:" id="wcm-6H-7NO"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Found x movies for actor's long name." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qy3-cu-Rtz">

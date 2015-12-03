@@ -9,10 +9,60 @@
 import UIKit
 
 extension UIViewController {
+    
+    enum GuessType {
+        case Correct
+        case Incorrect
+        case TimeUp
+        case AlreadyGuessed
+    }
 
-    func showNoDataAlert () {
+    func showNoDataAlert() {
         let alert = UIAlertController(title: "No Data Found", message: "No data was found. Please ensure you are connected to the internet.", preferredStyle: UIAlertControllerStyle.Alert)
         alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
+        
+        self.presentViewController(alert, animated: true, completion: {})
+    }
+    
+    func showGuessResultAlert(correct: GuessType, playerNumber: Int, clickedOK: () -> Void) {
+        var title = ""
+        var message = ""
+        
+        switch correct {
+            case .Correct:
+                title = "Correct!"
+                message = "Good guess! It is now Player " + String(playerNumber) + "'s turn."
+            case .Incorrect:
+                title = "Incorrect!"
+                message = "I'm sorry, but that is wrong. It is now Player " + String(playerNumber) + "'s turn."
+            case .TimeUp:
+                title = "Time's up!"
+                message = "I'm sorry, but you took too long. It is now Player " + String(playerNumber) + "'s turn."
+            case .AlreadyGuessed:
+                title = "Already guessed!"
+                message = "That movie was already correctly guessed. Try again!"
+        }
+        
+        let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.Alert)
+        alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: {
+            _ in clickedOK()}))
+        
+        self.presentViewController(alert, animated: true, completion: {})
+    }
+    
+    func showStartGameAlert(clickedOK: () -> Void) {
+        let alert = UIAlertController(title: "Start!", message: "Player 1, you are up.", preferredStyle: UIAlertControllerStyle.Alert)
+        alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: {_ in clickedOK()}))
+        
+        self.presentViewController(alert, animated: true, completion: {})
+    }
+    
+    func showEndGameAlert(players: [Bool], clickedShowAnswers: () -> Void, clickedStartOver: () -> Void) {
+        let winner = players.indexOf({ $0 })
+        
+        let alert = UIAlertController(title: "Game Over!", message: "Player " + String(winner! + 1) + " wins!", preferredStyle: UIAlertControllerStyle.Alert)
+        alert.addAction(UIAlertAction(title: "Start Over", style: UIAlertActionStyle.Default, handler: {_ in clickedStartOver()}))
+        alert.addAction(UIAlertAction(title: "Show Answers", style: UIAlertActionStyle.Default, handler: {_ in clickedShowAnswers()}))
         
         self.presentViewController(alert, animated: true, completion: {})
     }

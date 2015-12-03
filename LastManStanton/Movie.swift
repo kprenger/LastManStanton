@@ -27,30 +27,18 @@ class Movie: Mappable {
         
     }
     
+    init (dummyMovie: Bool) {
+        if (dummyMovie) {
+            title = Constants.dummyMovieTitle
+        }
+    }
+    
     func mapping(map: Map) {
-        let dateTransform = TransformOf<NSDate, String>(fromJSON: { (value: String?) -> NSDate? in
-            let dateFormatter = NSDateFormatter()
-            dateFormatter.dateFormat = "yyyy-MM-dd"
-            
-            if let value = value {
-                return dateFormatter.dateFromString(value)
-            }
-            return nil
-            }, toJSON: { (value: NSDate?) -> String? in
-                if let value = value {
-                    let dateFormatter = NSDateFormatter()
-                    dateFormatter.dateFormat = "yyyy-MM-dd"
-                    
-                    return dateFormatter.stringFromDate(value)
-                }
-                return nil
-        })
-        
         character <- map["character"]
         id <- map["id"]
         title <- map["title"]
         originalTitle <- map["original_title"]
-        releaseDate <- (map["release_date"], dateTransform)
+        releaseDate <- (map["release_date"], Constants.dateTransform)
         posterImagePath <- map["poster_path"]
         job <- map["job"]
     }

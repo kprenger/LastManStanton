@@ -54,7 +54,7 @@ class APIManager: NSObject {
                 
                 if let searchResult = response.result.value {
                     if let results = searchResult.results {
-                        personArray = results
+                        personArray = results.filter({ $0.knownFor?.count > 0 })
                     }
                 }
                 
