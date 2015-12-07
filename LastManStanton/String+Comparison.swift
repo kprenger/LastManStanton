@@ -10,6 +10,8 @@ import UIKit
 
 extension String {
     
+    //MARK - String mutation
+    
     var removePunctuation: String {
         get {
             return self.decomposedStringWithCanonicalMapping.componentsSeparatedByCharactersInSet(NSCharacterSet.alphanumericCharacterSet().invertedSet).joinWithSeparator("")
@@ -35,11 +37,55 @@ extension String {
         return words
     }
     
+    //MARK - Levenshtein distance functions
+    
+    //Pulled from this gist: https://gist.github.com/bgreenlee/52d93a1d8fa1b8c1f38b
+    
+    func min(numbers: Int...) -> Int {
+        return numbers.reduce(numbers[0], combine: {$0 < $1 ? $0 : $1})
+    }
+    
+    //If Levenshtein is <5, then the strings are close enough
+    //
+    func levenshtein(comparedString: String) -> Int {
+        // create character arrays
+        let a = Array(self.characters)
+        let b = Array(comparedString.characters)
+        
+        // initialize matrix of size |a|+1 * |b|+1 to zero
+        var dist = [[Int]]()
+        for _ in 0...a.count {
+            dist.append([Int](count: b.count + 1, repeatedValue: 0))
+        }
+        
+        // 'a' prefixes can be transformed into empty string by deleting every char
+        for i in 1...a.count {
+            dist[i][0] = i
+        }
+        
+        // 'b' prefixes can be created from empty string by inserting every char
+        for j in 1...b.count {
+            dist[0][j] = j
+        }
+        
+        for i in 1...a.count {
+            for j in 1...b.count {
+                if a[i-1] == b[j-1] {
+                    dist[i][j] = dist[i-1][j-1]  // noop
+                } else {
+                    dist[i][j] = min(
+                        dist[i-1][j] + 1,  // deletion
+                        dist[i][j-1] + 1,  // insertion
+                        dist[i-1][j-1] + 1  // substitution
+                    )
+                }
+            }
+        }
+        
+        return dist[a.count][b.count]
+    }
+    
     func fuzzyCompare(comparedString: String, fuzzySearchLevel: Int) -> Bool {
-        let hardcore = comparedString
-        let strict = comparedString.removePunctuation
-        let average = comparedString.stripThe.removePunctuation.lowercaseString
-        let kind = ""
         
         // 0 = Hardcore (exact match with "the," capitalization and punctuation)
         // 1 = Strict (exact match with "the" and capitalization; no punctuation)
@@ -54,7 +100,7 @@ extension String {
             case 2:
                 return self.stripThe.removePunctuation.lowercaseString == comparedString.stripThe.removePunctuation.lowercaseString
             case 3:
-                return self.removePunctuation == comparedString.removePunctuation
+                return self.stripThe.removePunctuation.lowercaseString.levenshtein(comparedString.stripThe.removePunctuation.lowercaseString) <= 5
             default:
                 return self == comparedString
         }

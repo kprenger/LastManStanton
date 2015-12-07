@@ -14,6 +14,7 @@ class OptionsInfoViewController: UIViewController {
 
     let plist = PListUtility.sharedInstance.getPlist()
     let fuzzySearchOptions = ["Hardcore", "Strict", "Average", "Kind"]
+    let pirates = "pirates of caribbean curse of black pearl"
     
     var numberOfPlayers = 1
     var guessTimeLimit = 5
