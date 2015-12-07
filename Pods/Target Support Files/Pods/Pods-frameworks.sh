@@ -86,10 +86,12 @@ strip_invalid_archs() {
 if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "Pods/Alamofire.framework"
   install_framework "Pods/AlamofireObjectMapper.framework"
+  install_framework "Pods/FuzzySearch.framework"
   install_framework "Pods/ObjectMapper.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "Pods/Alamofire.framework"
   install_framework "Pods/AlamofireObjectMapper.framework"
+  install_framework "Pods/FuzzySearch.framework"
   install_framework "Pods/ObjectMapper.framework"
 fi
