@@ -40,7 +40,9 @@ class APIManager: NSObject {
                     movieArray.appendContentsOf(person.crew!.filter({$0.job == "Director"}))
                 }
                 
-                completion(movieArray: movieArray)
+                //Only return movies that have come out already
+                //
+                completion(movieArray: movieArray.filter({$0.releaseDate?.compare(NSDate()) != NSComparisonResult.OrderedDescending}))
         }
     }
     

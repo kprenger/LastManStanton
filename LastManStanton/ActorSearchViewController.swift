@@ -19,8 +19,10 @@ class ActorSearchViewController: UIViewController {
     
     var personArray = [Person]()
     var selectedPerson = Person()
+    var alertShown = false
     
     @IBOutlet weak var personTableView: UITableView!
+    @IBOutlet weak var spinner: UIActivityIndicatorView!
 
     //MARK - Lifecycle
     
@@ -33,15 +35,12 @@ class ActorSearchViewController: UIViewController {
         if (!isSuggestion) {
             personTableView.tableHeaderView = searchController.searchBar
             searchController.searchBar.sizeToFit()
+            searchController.searchBar.delegate = self
         } else {
             APIManager.sharedInstance.getPopularPersons { (personArray) -> Void in
+                self.spinner.stopAnimating()
                 self.personArray = personArray as! [Person]
-                
-                if (self.personArray.count == 0) {
-                    self.showNoDataAlert()
-                } else {
-                    self.personTableView.reloadData()
-                }
+                self.personTableView.reloadData()
             }
         }
     }
@@ -57,13 +56,9 @@ class ActorSearchViewController: UIViewController {
     
     func findPersonsForSearchText(searchText: String) {
         APIManager.sharedInstance.getPersonFromQuery(searchText) { (personArray) -> Void in
+            self.spinner.stopAnimating()
             self.personArray = personArray as! [Person]
-            
-            if (self.personArray.count == 0 && searchText != "") {
-                self.showNoDataAlert()
-            } else {
-                self.personTableView.reloadData()
-            }
+            self.personTableView.reloadData()
         }
     }
     
@@ -120,5 +115,13 @@ extension ActorSearchViewController: UISearchResultsUpdating {
         if (searchController.active) {
             findPersonsForSearchText(searchController.searchBar.text!)
         }
+    }
+}
+
+//MARK - SearchBar delegate
+
+extension ActorSearchViewController: UISearchBarDelegate {
+    func searchBarSearchButtonClicked(searchBar: UISearchBar) {
+        searchController.active = false
     }
 }

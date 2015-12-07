@@ -7,6 +7,6 @@
 	<key>guessTimeLimit</key>
 	<integer>5</integer>
 	<key>numberOfPlayers</key>
-	<integer>1</integer>
+	<integer>2</integer>
 </dict>
 </plist>

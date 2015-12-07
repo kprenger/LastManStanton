@@ -9,13 +9,15 @@
 import UIKit
 
 class OptionsInfoViewController: UIViewController {
+    
+    internal var isOptions = false
 
     let plist = PListUtility.sharedInstance.getPlist()
-    let fuzzySearchOptions = ["Strict", "Average", "Kind"]
+    let fuzzySearchOptions = ["Hardcore", "Strict", "Average", "Kind"]
     
     var numberOfPlayers = 1
     var guessTimeLimit = 5
-    var fuzzySearchLevel = 1
+    var fuzzySearchLevel = 0
     
     @IBOutlet weak var numberOfPlayersLabel: UILabel!
     @IBOutlet weak var guessTimeLimitLabel: UILabel!
@@ -24,6 +26,34 @@ class OptionsInfoViewController: UIViewController {
     @IBOutlet weak var numberOfPlayersStepper: UIStepper!
     @IBOutlet weak var guessTimeLimitStepper: UIStepper!
     @IBOutlet weak var fuzzySearchLevelStepper: UIStepper!
+    
+    //MARK - Lifecycle
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        if (isOptions) {
+            numberOfPlayers = plist[Constants.numberOfPlayersString] as! Int
+            guessTimeLimit = plist[Constants.guessTimeLimitString] as! Int
+            fuzzySearchLevel = plist[Constants.fuzzySearchLevelString] as! Int
+            
+            numberOfPlayersStepper.value = Double(numberOfPlayers)
+            guessTimeLimitStepper.value = Double(guessTimeLimit)
+            fuzzySearchLevelStepper.value = Double(fuzzySearchLevel)
+            
+            updateLabels()
+        }
+    }
+    
+    //MARK - Update labels
+    
+    func updateLabels() {
+        numberOfPlayersLabel.text = String(numberOfPlayers)
+        guessTimeLimitLabel.text = String(guessTimeLimit)
+        fuzzySearchLevelLabel.text = fuzzySearchOptions[fuzzySearchLevel]
+    }
+    
+    //MARK - Steppers touched
     
     @IBAction func numberOfPlayersChanged(sender: UIStepper) {
         numberOfPlayers = Int(sender.value)
@@ -45,25 +75,5 @@ class OptionsInfoViewController: UIViewController {
     
     @IBAction func closeButtonTouched(sender: AnyObject) {
         dismissViewControllerAnimated(true, completion: {})
-    }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        numberOfPlayers = plist[Constants.numberOfPlayersString] as! Int
-        guessTimeLimit = plist[Constants.guessTimeLimitString] as! Int
-        fuzzySearchLevel = plist[Constants.fuzzySearchLevelString] as! Int
-        
-        numberOfPlayersStepper.value = Double(numberOfPlayers)
-        guessTimeLimitStepper.value = Double(guessTimeLimit)
-        fuzzySearchLevelStepper.value = Double(fuzzySearchLevel)
-        
-        updateLabels()
-    }
-    
-    func updateLabels() {
-        numberOfPlayersLabel.text = String(numberOfPlayers)
-        guessTimeLimitLabel.text = String(guessTimeLimit)
-        fuzzySearchLevelLabel.text = fuzzySearchOptions[fuzzySearchLevel - 1]
     }
 }

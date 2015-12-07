@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F86FD22B1C10E70A00E0DBCE /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = F86FD22A1C10E70A00E0DBCE /* Settings.bundle */; };
+		F86FD22D1C10E8E900E0DBCE /* Formatters.swift in Sources */ = {isa = PBXBuildFile; fileRef = F86FD22C1C10E8E900E0DBCE /* Formatters.swift */; };
+		F86FD22F1C10EA5600E0DBCE /* String+Comparison.swift in Sources */ = {isa = PBXBuildFile; fileRef = F86FD22E1C10EA5600E0DBCE /* String+Comparison.swift */; };
 		F8A2558E1BF3D2F90045C482 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A2558D1BF3D2F90045C482 /* AppDelegate.swift */; };
 		F8A255901BF3D2F90045C482 /* MovieListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8A2558F1BF3D2F90045C482 /* MovieListViewController.swift */; };
 		F8A255931BF3D2F90045C482 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F8A255911BF3D2F90045C482 /* Main.storyboard */; };
@@ -29,6 +32,9 @@
 		16053C1CE6D6CCA6FDE715D2 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		84275FE9D9333421DA8929C2 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		B6D92F14FC681812FC7B7E4D /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F86FD22A1C10E70A00E0DBCE /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
+		F86FD22C1C10E8E900E0DBCE /* Formatters.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Formatters.swift; sourceTree = "<group>"; };
+		F86FD22E1C10EA5600E0DBCE /* String+Comparison.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Comparison.swift"; sourceTree = "<group>"; };
 		F8A2558A1BF3D2F90045C482 /* LastManStanton.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LastManStanton.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F8A2558D1BF3D2F90045C482 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F8A2558F1BF3D2F90045C482 /* MovieListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieListViewController.swift; sourceTree = "<group>"; };
@@ -107,6 +113,7 @@
 				F8A255941BF3D2F90045C482 /* Assets.xcassets */,
 				F8A255991BF3D2F90045C482 /* Info.plist */,
 				F8D7E68A1C0E5448009772C7 /* Options.plist */,
+				F86FD22A1C10E70A00E0DBCE /* Settings.bundle */,
 			);
 			path = LastManStanton;
 			sourceTree = "<group>";
@@ -136,8 +143,10 @@
 			children = (
 				F8D7E6721BF3E183009772C7 /* APIManager.swift */,
 				F8D7E6861C0DE0BD009772C7 /* UIViewController+ShowAlert.swift */,
+				F86FD22E1C10EA5600E0DBCE /* String+Comparison.swift */,
 				F8D7E6881C0E5296009772C7 /* PListUtility.swift */,
 				F8D7E68C1C0F3E7C009772C7 /* Constants.swift */,
+				F86FD22C1C10E8E900E0DBCE /* Formatters.swift */,
 			);
 			name = Utilities;
 			sourceTree = "<group>";
@@ -203,6 +212,7 @@
 			files = (
 				F8A255981BF3D2F90045C482 /* LaunchScreen.storyboard in Resources */,
 				F8A255951BF3D2F90045C482 /* Assets.xcassets in Resources */,
+				F86FD22B1C10E70A00E0DBCE /* Settings.bundle in Resources */,
 				F8D7E68B1C0E5448009772C7 /* Options.plist in Resources */,
 				F8A255931BF3D2F90045C482 /* Main.storyboard in Resources */,
 			);
@@ -239,6 +249,8 @@
 				F8D7E6791BFA91B0009772C7 /* ActorSearchViewController.swift in Sources */,
 				F8D7E6771BFA8838009772C7 /* Person.swift in Sources */,
 				F8D7E6871C0DE0BD009772C7 /* UIViewController+ShowAlert.swift in Sources */,
+				F86FD22D1C10E8E900E0DBCE /* Formatters.swift in Sources */,
+				F86FD22F1C10EA5600E0DBCE /* String+Comparison.swift in Sources */,
 				F8D7E6731BF3E183009772C7 /* APIManager.swift in Sources */,
 				F8A255901BF3D2F90045C482 /* MovieListViewController.swift in Sources */,
 				F8D7E6891C0E5296009772C7 /* PListUtility.swift in Sources */,

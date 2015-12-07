@@ -23,23 +23,35 @@ class MovieListViewController: UIViewController {
     var playersInGame = [Bool]()
     
     var gameOver = false
+    var someoneGuessedCorrect = false
+    var fuzzySearchLevel = 1
     var guessTimeLimit = 1
     var numberOfPlayers = 1
     var currentPlayer = 1
+    var currentTime = 0
     
     var timer = NSTimer()
     
     @IBOutlet weak var movieTableView: UITableView!
     @IBOutlet weak var foundMoviesLabel: UILabel!
     @IBOutlet weak var guessTextField: UITextField!
+    @IBOutlet weak var spinner: UIActivityIndicatorView!
+    @IBOutlet weak var whoseTurnLabel: UILabel!
+    @IBOutlet weak var timerLabel: UILabel!
     
     //MARK: - Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        guessTextField.delegate = self
+        
+        whoseTurnLabel.text = "Player 1's turn"
         numberOfPlayers = plist[Constants.numberOfPlayersString] as! Int
         guessTimeLimit = plist[Constants.guessTimeLimitString] as! Int
+        fuzzySearchLevel = plist[Constants.fuzzySearchLevelString] as! Int
+        currentTime = guessTimeLimit * 60
+        timerLabel.text = Formatters.timeFormat(currentTime)
         
         for _ in 1...numberOfPlayers {
             playersInGame.append(true)
@@ -48,6 +60,7 @@ class MovieListViewController: UIViewController {
         foundMoviesLabel.text = "Finding movies for " + selectedPerson.name!
         
         APIManager.sharedInstance.getMoviesForPerson(selectedPerson.id!, completion: { (movieArray) -> Void in
+            self.spinner.stopAnimating()
             self.movieArray = movieArray as! [Movie]
             self.allMovieArray = movieArray as! [Movie]
             
@@ -55,7 +68,11 @@ class MovieListViewController: UIViewController {
                 self.showNoDataAlert()
             } else {
                 self.movieTableView.reloadData()
-                self.foundMoviesLabel.text = "Found " + String(self.allMovieArray.count) + " movies for " + self.selectedPerson.name!
+                
+                if (self.allMovieArray.count != 1) {
+                    self.foundMoviesLabel.text = "Found " + String(self.allMovieArray.count) + " movies for " + self.selectedPerson.name! } else {
+                    self.foundMoviesLabel.text = "Found " + String(self.allMovieArray.count) + " movie for " + self.selectedPerson.name!
+                }
                 self.showStartGameAlert({self.startTimer()})
             }
         })
@@ -63,15 +80,61 @@ class MovieListViewController: UIViewController {
     
     //MARK: - Game functions
     
+    func correctAnswer(guessedMovie: Movie) {
+        someoneGuessedCorrect = true
+        playersInGame[currentPlayer - 1] = true
+        
+        incrementPlayer()
+        
+        if (!gameOver) {
+            showGuessResultAlert(GuessType.Correct, playerNumber: currentPlayer, clickedOK: {self.startTimer()})
+        }
+        
+        correctGuesses.append(guessedMovie)
+        
+        if let index = movieArray.indexOf({ $0.id == guessedMovie.id }) {
+            movieArray.removeAtIndex(index)
+        }
+        
+        updateMovieTable()
+    }
+    
+    func incorrectAnswer(isTimeExpired: Bool) {
+        let guessType = (isTimeExpired ? GuessType.TimeUp : GuessType.Incorrect)
+
+        playersInGame[currentPlayer - 1] = false
+        incrementPlayer()
+        
+        if (!gameOver) {
+            showGuessResultAlert(guessType, playerNumber: currentPlayer, clickedOK: {self.startTimer()})
+        }
+    }
+    
     func incrementPlayer() {
         let playersStillPlaying = playersInGame.filter({ $0 })
-        if (playersStillPlaying.count <= 1) {
+        if (playersStillPlaying.count < 1) {
             timer.invalidate()
-            showEndGameAlert(playersInGame,
+            showEndGameAlert(currentPlayer, someoneGuessedCorrect: someoneGuessedCorrect,
                 clickedShowAnswers: {
                     self.correctGuesses = self.allMovieArray.sort({ $0.title < $1.title })
                     self.movieArray = [Movie]()
                     self.movieTableView.reloadData()
+                },
+                clickedRedo:  {
+                    self.correctGuesses = [Movie]()
+                    self.movieArray = self.allMovieArray
+                    self.movieTableView.reloadData()
+                    
+                    self.gameOver = false
+                    self.someoneGuessedCorrect = false
+                    self.playersInGame = [Bool]()
+                    for _ in 1...self.numberOfPlayers {
+                        self.playersInGame.append(true)
+                    }
+                    self.currentPlayer = self.numberOfPlayers
+                    self.incrementPlayer()
+                    
+                    self.showStartGameAlert({self.startTimer()})
                 },
                 clickedStartOver: {
                     self.performSegueWithIdentifier(startOverSegueID, sender: self)
@@ -88,17 +151,23 @@ class MovieListViewController: UIViewController {
         if (!playersInGame[currentPlayer - 1]) {
             incrementPlayer()
         }
+        
+        currentTime = guessTimeLimit * 60
+        timerLabel.text = Formatters.timeFormat(currentTime)
+        whoseTurnLabel.text = "Player " + String(currentPlayer) + "'s turn"
     }
     
     func checkGuessInList(guess: String) -> Movie? {
         for movie in allMovieArray {
-            if (movie.title == guess) {
-                if (!correctGuesses.contains{ $0.id == movie.id }) {
-                    return movie
-                } else {
-                    self.showGuessResultAlert(GuessType.AlreadyGuessed, playerNumber: 1, clickedOK: {})
-                    
-                    return Movie(dummyMovie: true)
+            if let title = movie.title {
+                if (title.fuzzyCompare(guess, fuzzySearchLevel: fuzzySearchLevel)) {
+                    if (!correctGuesses.contains{ $0.id == movie.id }) {
+                        return movie
+                    } else {
+                        self.showGuessResultAlert(GuessType.AlreadyGuessed, playerNumber: 1, clickedOK: {})
+                        
+                        return Movie(dummyMovie: true)
+                    }
                 }
             }
         }
@@ -119,16 +188,22 @@ class MovieListViewController: UIViewController {
     
     func startTimer() {
         timer.invalidate()
-        timer = NSTimer.scheduledTimerWithTimeInterval(Double(guessTimeLimit * 60), target: self, selector: "timeExpired", userInfo: nil, repeats: false)
+        timer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: "timeIncrement", userInfo: nil, repeats: true)
         NSRunLoop.currentRunLoop().addTimer(timer, forMode: NSRunLoopCommonModes)
+    }
+    
+    func timeIncrement() {
+        currentTime -= 1
+        if (currentTime <= 0) {
+            timeExpired()
+        } else {
+            timerLabel.text = Formatters.timeFormat(currentTime)
+        }
     }
     
     func timeExpired() {
         timer.invalidate()
-        showGuessResultAlert(GuessType.TimeUp, playerNumber: currentPlayer, clickedOK: {
-            self.startTimer()
-            self.incrementPlayer()
-        })
+        incorrectAnswer(true)
     }
     
     //MARK: - Button touches
@@ -139,34 +214,13 @@ class MovieListViewController: UIViewController {
     
     @IBAction func guessButtonTouched(sender: AnyObject) {
         if let guessedMovie = checkGuessInList(guessTextField.text!) {
-            if (guessedMovie.title == Constants.dummyMovieTitle) {
-                guessTextField.resignFirstResponder()
-                guessTextField.text! = ""
-                
-                return
+            if (guessedMovie.title != Constants.dummyMovieTitle) {
+                timer.invalidate()
+                correctAnswer(guessedMovie)
             }
-            
-            playersInGame[currentPlayer - 1] = true
-            incrementPlayer()
-            
-            if (!gameOver) {
-                showGuessResultAlert(GuessType.Correct, playerNumber: currentPlayer, clickedOK: {self.startTimer()})
-            }
-            
-            correctGuesses.append(guessedMovie)
-            
-            if let index = movieArray.indexOf({ $0.id == guessedMovie.id }) {
-                movieArray.removeAtIndex(index)
-            }
-            
-            updateMovieTable()
         } else {
-            playersInGame[currentPlayer - 1] = false
-            incrementPlayer()
-            
-            if (!gameOver) {
-                showGuessResultAlert(GuessType.Incorrect, playerNumber: currentPlayer, clickedOK: {self.startTimer()})
-            }
+            timer.invalidate()
+            incorrectAnswer(false)
         }
         
         guessTextField.resignFirstResponder()
@@ -199,16 +253,26 @@ extension MovieListViewController: UITableViewDataSource {
     }
     
     func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        var returnString = ""
+        
         switch section {
-        case 0:
-            return "Guessed: " + String(correctGuesses.count) + " of " + String(allMovieArray.count) + " movies"
+            case 0:
+                returnString = "Guessed: " + String(correctGuesses.count)
             
-        case 1:
-            return "Not Guessed: " + String(movieArray.count) + " of " + String(allMovieArray.count) + " movies"
+            case 1:
+                returnString = "Not Guessed: " + String(movieArray.count)
             
-        default:
-            return ""
+            default:
+                return ""
+            }
+        
+        if (allMovieArray.count != 1) {
+            returnString += " of " + String(allMovieArray.count) + " movies"
+        } else {
+            returnString += " of " + String(allMovieArray.count) + " movie"
         }
+        
+        return returnString
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -232,4 +296,15 @@ extension MovieListViewController: UITableViewDataSource {
 
 extension MovieListViewController: UITableViewDelegate {
     
+}
+
+//MARK - TextField delegate
+
+extension MovieListViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(textField: UITextField) -> Bool {
+        guessTextField.resignFirstResponder()
+        guessButtonTouched(self)
+        
+        return true
+    }
 }

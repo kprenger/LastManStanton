@@ -10,6 +10,8 @@ import UIKit
 
 let knowNameSegueID = "knowName"
 let needSuggestionSegueID = "needSuggestion"
+let optionsSegueID = "optionsSegue"
+let infoSegueID = "infoSegue"
 
 class StartGameViewController: UIViewController {
     
@@ -30,6 +32,12 @@ class StartGameViewController: UIViewController {
         } else if (segue.identifier == needSuggestionSegueID) {
             let actorController = segue.destinationViewController as! ActorSearchViewController
             actorController.isSuggestion = true
+        } else if (segue.identifier == optionsSegueID) {
+            let optionsInfoController = segue.destinationViewController as! OptionsInfoViewController
+            optionsInfoController.isOptions = true
+        } else if (segue.identifier == infoSegueID) {
+            let optionsInfoController = segue.destinationViewController as! OptionsInfoViewController
+            optionsInfoController.isOptions = false
         } else {
             super.prepareForSegue(segue, sender: sender)
         }

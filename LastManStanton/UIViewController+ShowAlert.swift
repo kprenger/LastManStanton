@@ -57,12 +57,19 @@ extension UIViewController {
         self.presentViewController(alert, animated: true, completion: {})
     }
     
-    func showEndGameAlert(players: [Bool], clickedShowAnswers: () -> Void, clickedStartOver: () -> Void) {
-        let winner = players.indexOf({ $0 })
+    func showEndGameAlert(currentPlayer: Int, someoneGuessedCorrect: Bool, clickedShowAnswers: () -> Void, clickedRedo: () -> Void, clickedStartOver: () -> Void) {
+        var message = ""
         
-        let alert = UIAlertController(title: "Game Over!", message: "Player " + String(winner! + 1) + " wins!", preferredStyle: UIAlertControllerStyle.Alert)
+        if (someoneGuessedCorrect) {
+            message = "Player " + String(currentPlayer) + " wins!"
+        } else {
+            message = "No one guessed correctly. It's a tie!"
+        }
+        
+        let alert = UIAlertController(title: "Game Over!", message: message, preferredStyle: UIAlertControllerStyle.Alert)
+        alert.addAction(UIAlertAction(title: "Show All Movies", style: UIAlertActionStyle.Default, handler: {_ in clickedShowAnswers()}))
+        alert.addAction(UIAlertAction(title: "Redo This Person", style: UIAlertActionStyle.Default, handler: {_ in clickedRedo()}))
         alert.addAction(UIAlertAction(title: "Start Over", style: UIAlertActionStyle.Default, handler: {_ in clickedStartOver()}))
-        alert.addAction(UIAlertAction(title: "Show Answers", style: UIAlertActionStyle.Default, handler: {_ in clickedShowAnswers()}))
         
         self.presentViewController(alert, animated: true, completion: {})
     }
