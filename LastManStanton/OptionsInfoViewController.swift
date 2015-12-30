@@ -14,7 +14,10 @@ class OptionsInfoViewController: UIViewController {
 
     let plist = PListUtility.sharedInstance.getPlist()
     let fuzzySearchOptions = ["Hardcore", "Strict", "Average", "Kind"]
-    let pirates = "pirates of caribbean curse of black pearl"
+    let fuzzySearchDescriptions = ["Hardcore - Exact match (capitalization, \"the,\" and punctuation required)",
+        "Strict - Near match (capitalization and \"the\" required; no punctuation)",
+        "Average - Semi match (no capitalization, \"the,\" or punctuation needed)",
+        "Kind - Kind of a match (no capitalization, \"the\" or punctuation needed; allows for minor misspelling)"]
     
     var numberOfPlayers = 1
     var guessTimeLimit = 5
@@ -23,6 +26,7 @@ class OptionsInfoViewController: UIViewController {
     @IBOutlet weak var numberOfPlayersLabel: UILabel!
     @IBOutlet weak var guessTimeLimitLabel: UILabel!
     @IBOutlet weak var fuzzySearchLevelLabel: UILabel!
+    @IBOutlet weak var comparisonDescription: UITextView!
     
     @IBOutlet weak var numberOfPlayersStepper: UIStepper!
     @IBOutlet weak var guessTimeLimitStepper: UIStepper!
@@ -52,6 +56,7 @@ class OptionsInfoViewController: UIViewController {
         numberOfPlayersLabel.text = String(numberOfPlayers)
         guessTimeLimitLabel.text = String(guessTimeLimit)
         fuzzySearchLevelLabel.text = fuzzySearchOptions[fuzzySearchLevel]
+        comparisonDescription.text = fuzzySearchDescriptions[fuzzySearchLevel]
     }
     
     //MARK - Steppers touched
