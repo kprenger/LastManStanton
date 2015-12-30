@@ -31,6 +31,7 @@ class ActorSearchViewController: UIViewController {
         
         searchController.searchResultsUpdater = self
         searchController.dimsBackgroundDuringPresentation = false
+        searchController.searchBar.placeholder = "Search for an actor or director"
         
         if (!isSuggestion) {
             personTableView.tableHeaderView = searchController.searchBar

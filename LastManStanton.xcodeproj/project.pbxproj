@@ -35,7 +35,7 @@
 		F86FD22A1C10E70A00E0DBCE /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		F86FD22C1C10E8E900E0DBCE /* Formatters.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Formatters.swift; sourceTree = "<group>"; };
 		F86FD22E1C10EA5600E0DBCE /* String+Comparison.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Comparison.swift"; sourceTree = "<group>"; };
-		F8A2558A1BF3D2F90045C482 /* LastManStanton.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LastManStanton.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		F8A2558A1BF3D2F90045C482 /* LastMan.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LastMan.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F8A2558D1BF3D2F90045C482 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F8A2558F1BF3D2F90045C482 /* MovieListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieListViewController.swift; sourceTree = "<group>"; };
 		F8A255921BF3D2F90045C482 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -96,7 +96,7 @@
 		F8A2558B1BF3D2F90045C482 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				F8A2558A1BF3D2F90045C482 /* LastManStanton.app */,
+				F8A2558A1BF3D2F90045C482 /* LastMan.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -169,7 +169,7 @@
 			);
 			name = LastManStanton;
 			productName = LastManStanton;
-			productReference = F8A2558A1BF3D2F90045C482 /* LastManStanton.app */;
+			productReference = F8A2558A1BF3D2F90045C482 /* LastMan.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -184,6 +184,7 @@
 				TargetAttributes = {
 					F8A255891BF3D2F90045C482 = {
 						CreatedOnToolsVersion = 7.1.1;
+						DevelopmentTeam = WBN229NZM2;
 					};
 				};
 			};
@@ -369,10 +370,11 @@
 			baseConfigurationReference = 84275FE9D9333421DA8929C2 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = LastManStanton/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.mts.LastManStanton;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = LastMan;
 			};
 			name = Debug;
 		};
@@ -381,10 +383,11 @@
 			baseConfigurationReference = 16053C1CE6D6CCA6FDE715D2 /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = LastManStanton/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.mts.LastManStanton;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = LastMan;
 			};
 			name = Release;
 		};

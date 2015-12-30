@@ -13,11 +13,11 @@ class OptionsInfoViewController: UIViewController {
     internal var isOptions = false
 
     let plist = PListUtility.sharedInstance.getPlist()
-    let fuzzySearchOptions = ["Hardcore", "Strict", "Average", "Kind"]
-    let fuzzySearchDescriptions = ["Hardcore - Exact match (capitalization, \"the,\" and punctuation required)",
-        "Strict - Near match (capitalization and \"the\" required; no punctuation)",
-        "Average - Semi match (no capitalization, \"the,\" or punctuation needed)",
-        "Kind - Kind of a match (no capitalization, \"the\" or punctuation needed; allows for minor misspelling)"]
+    let fuzzySearchOptions = ["Kind", "Average", "Strict", "Hardcore"]
+    let fuzzySearchDescriptions = ["Kind of a match (no capitalization, \"the\" or punctuation needed; allows for minor misspelling)",
+        "Semi match (no capitalization, \"the,\" or punctuation needed)",
+        "Near match (capitalization and \"the\" required; no punctuation)",
+        "Exact match (capitalization, \"the,\" and punctuation required)"]
     
     var numberOfPlayers = 1
     var guessTimeLimit = 5

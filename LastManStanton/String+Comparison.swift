@@ -87,20 +87,20 @@ extension String {
     
     func fuzzyCompare(comparedString: String, fuzzySearchLevel: Int) -> Bool {
         
-        // 0 = Hardcore (exact match with "the," capitalization and punctuation)
-        // 1 = Strict (exact match with "the" and capitalization; no punctuation)
-        // 2 = Average (exact match without "the", caps, or punctuation)
-        // 3 = Kind (no "the," no caps, no punctuation, and allows minor misspelling)
-        //"".join(start.componentsSeparatedByCharactersInSet(NSCharacterSet.letterCharacte‌​rSet().invertedSet))
+        // 3 = Hardcore (exact match with "the," capitalization and punctuation)
+        // 2 = Strict (exact match with "the" and capitalization; no punctuation)
+        // 1 = Average (exact match without "the", caps, or punctuation)
+        // 0 = Kind (no "the," no caps, no punctuation, and allows minor misspelling)
+        //
         switch fuzzySearchLevel {
-            case 0:
-                return self == comparedString
-            case 1:
-                return self.removePunctuation == comparedString.removePunctuation
-            case 2:
-                return self.stripThe.removePunctuation.lowercaseString == comparedString.stripThe.removePunctuation.lowercaseString
             case 3:
-                return self.stripThe.removePunctuation.lowercaseString.levenshtein(comparedString.stripThe.removePunctuation.lowercaseString) <= 5
+                return self == comparedString
+            case 2:
+                return self.removePunctuation == comparedString.removePunctuation
+            case 1:
+                return self.stripThe.removePunctuation.lowercaseString == comparedString.stripThe.removePunctuation.lowercaseString
+            case 0:
+                return self.stripThe.removePunctuation.lowercaseString.levenshtein(comparedString.stripThe.removePunctuation.lowercaseString) <= 3
             default:
                 return self == comparedString
         }

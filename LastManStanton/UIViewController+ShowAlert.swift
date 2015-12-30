@@ -15,6 +15,7 @@ extension UIViewController {
         case Incorrect
         case TimeUp
         case AlreadyGuessed
+        case BlankGuess
     }
 
     func showNoDataAlert() {
@@ -41,6 +42,9 @@ extension UIViewController {
             case .AlreadyGuessed:
                 title = "Already guessed!"
                 message = "That movie was already correctly guessed. Try again!"
+            case .BlankGuess:
+                title = "No answer!"
+                message = "Any guess is better than no guess!"
         }
         
         let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.Alert)

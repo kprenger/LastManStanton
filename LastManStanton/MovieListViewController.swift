@@ -38,6 +38,7 @@ class MovieListViewController: UIViewController {
     @IBOutlet weak var spinner: UIActivityIndicatorView!
     @IBOutlet weak var whoseTurnLabel: UILabel!
     @IBOutlet weak var timerLabel: UILabel!
+    @IBOutlet weak var guessButton: UIView!
     
     //MARK: - Lifecycle
     
@@ -90,7 +91,7 @@ class MovieListViewController: UIViewController {
             showGuessResultAlert(GuessType.Correct, playerNumber: currentPlayer, clickedOK: {self.startTimer()})
         }
         
-        correctGuesses.append(guessedMovie)
+        correctGuesses.insert(guessedMovie, atIndex: 0)
         
         if let index = movieArray.indexOf({ $0.id == guessedMovie.id }) {
             movieArray.removeAtIndex(index)
@@ -116,6 +117,8 @@ class MovieListViewController: UIViewController {
             timer.invalidate()
             showEndGameAlert(currentPlayer, someoneGuessedCorrect: someoneGuessedCorrect,
                 clickedShowAnswers: {
+                    self.guessButton.userInteractionEnabled = false
+                    self.guessButton.alpha = 0.3
                     self.correctGuesses = self.allMovieArray.sort({ $0.title < $1.title })
                     self.movieArray = [Movie]()
                     self.movieTableView.reloadData()
@@ -158,6 +161,12 @@ class MovieListViewController: UIViewController {
     }
     
     func checkGuessInList(guess: String) -> Movie? {
+        if (guess.isEmpty) {
+            self.showGuessResultAlert(GuessType.BlankGuess, playerNumber: 1, clickedOK: {})
+            
+            return Movie(dummyMovie: true)
+        }
+        
         for movie in allMovieArray {
             if let title = movie.title {
                 if (title.fuzzyCompare(guess, fuzzySearchLevel: fuzzySearchLevel)) {
@@ -178,7 +187,7 @@ class MovieListViewController: UIViewController {
     func updateMovieTable() {
         movieTableView.beginUpdates()
         movieTableView.deleteRowsAtIndexPaths([NSIndexPath(forRow: 0, inSection: 1)], withRowAnimation: .Left)
-        movieTableView.insertRowsAtIndexPaths([NSIndexPath(forRow: correctGuesses.count - 1, inSection: 0)], withRowAnimation: .Left)
+        movieTableView.insertRowsAtIndexPaths([NSIndexPath(forRow: 0, inSection: 0)], withRowAnimation: .Left)
         movieTableView.headerViewForSection(0)?.textLabel?.text = tableView(movieTableView, titleForHeaderInSection: 0)
         movieTableView.headerViewForSection(1)?.textLabel?.text = tableView(movieTableView, titleForHeaderInSection: 1)
         movieTableView.endUpdates()

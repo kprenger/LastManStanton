@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "F8A255891BF3D2F90045C482"
-               BuildableName = "LastManStanton.app"
+               BuildableName = "LastMan.app"
                BlueprintName = "LastManStanton"
                ReferencedContainer = "container:LastManStanton.xcodeproj">
             </BuildableReference>
@@ -33,7 +33,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "F8A255891BF3D2F90045C482"
-            BuildableName = "LastManStanton.app"
+            BuildableName = "LastMan.app"
             BlueprintName = "LastManStanton"
             ReferencedContainer = "container:LastManStanton.xcodeproj">
          </BuildableReference>
@@ -56,7 +56,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "F8A255891BF3D2F90045C482"
-            BuildableName = "LastManStanton.app"
+            BuildableName = "LastMan.app"
             BlueprintName = "LastManStanton"
             ReferencedContainer = "container:LastManStanton.xcodeproj">
          </BuildableReference>
@@ -75,7 +75,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "F8A255891BF3D2F90045C482"
-            BuildableName = "LastManStanton.app"
+            BuildableName = "LastMan.app"
             BlueprintName = "LastManStanton"
             ReferencedContainer = "container:LastManStanton.xcodeproj">
          </BuildableReference>
