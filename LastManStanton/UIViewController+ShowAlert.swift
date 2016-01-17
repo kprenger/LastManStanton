@@ -43,8 +43,8 @@ extension UIViewController {
                 title = "Already guessed!"
                 message = "That movie was already correctly guessed. Try again!"
             case .BlankGuess:
-                title = "No answer!"
-                message = "Any guess is better than no guess!"
+                title = "Invalid answer!"
+                message = "Please enter a valid answer (with letters and numbers)!"
         }
         
         let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.Alert)
@@ -73,7 +73,7 @@ extension UIViewController {
         let alert = UIAlertController(title: "Game Over!", message: message, preferredStyle: UIAlertControllerStyle.Alert)
         alert.addAction(UIAlertAction(title: "Show All Movies", style: UIAlertActionStyle.Default, handler: {_ in clickedShowAnswers()}))
         alert.addAction(UIAlertAction(title: "Redo This Person", style: UIAlertActionStyle.Default, handler: {_ in clickedRedo()}))
-        alert.addAction(UIAlertAction(title: "Start Over", style: UIAlertActionStyle.Default, handler: {_ in clickedStartOver()}))
+        alert.addAction(UIAlertAction(title: "Pick a New Person", style: UIAlertActionStyle.Default, handler: {_ in clickedStartOver()}))
         
         self.presentViewController(alert, animated: true, completion: {})
     }

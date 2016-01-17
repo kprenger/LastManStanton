@@ -29,6 +29,8 @@ class ActorSearchViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.spinner.stopAnimating()
+        
         searchController.searchResultsUpdater = self
         searchController.dimsBackgroundDuringPresentation = false
         searchController.searchBar.placeholder = "Search for an actor or director"
@@ -38,6 +40,8 @@ class ActorSearchViewController: UIViewController {
             searchController.searchBar.sizeToFit()
             searchController.searchBar.delegate = self
         } else {
+            self.spinner.startAnimating()
+            
             APIManager.sharedInstance.getPopularPersons { (personArray) -> Void in
                 self.spinner.stopAnimating()
                 self.personArray = personArray as! [Person]
@@ -56,6 +60,8 @@ class ActorSearchViewController: UIViewController {
     //MARK - Search function
     
     func findPersonsForSearchText(searchText: String) {
+        self.spinner.startAnimating()
+        
         APIManager.sharedInstance.getPersonFromQuery(searchText) { (personArray) -> Void in
             self.spinner.stopAnimating()
             self.personArray = personArray as! [Person]
@@ -114,7 +120,11 @@ extension ActorSearchViewController: UITableViewDelegate {
 extension ActorSearchViewController: UISearchResultsUpdating {
     func updateSearchResultsForSearchController(searchController: UISearchController) {
         if (searchController.active) {
-            findPersonsForSearchText(searchController.searchBar.text!)
+            if let searchTextCount = searchController.searchBar.text?.characters.count {
+                if (searchTextCount > 2) {
+                    findPersonsForSearchText(searchController.searchBar.text!)
+                }
+            }
         }
     }
 }

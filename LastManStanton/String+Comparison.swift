@@ -87,6 +87,8 @@ extension String {
     
     func fuzzyCompare(comparedString: String, fuzzySearchLevel: Int) -> Bool {
         
+        let levenshteinCompareValue = self.characters.count / 6
+        
         // 3 = Hardcore (exact match with "the," capitalization and punctuation)
         // 2 = Strict (exact match with "the" and capitalization; no punctuation)
         // 1 = Average (exact match without "the", caps, or punctuation)
@@ -100,7 +102,7 @@ extension String {
             case 1:
                 return self.stripThe.removePunctuation.lowercaseString == comparedString.stripThe.removePunctuation.lowercaseString
             case 0:
-                return self.stripThe.removePunctuation.lowercaseString.levenshtein(comparedString.stripThe.removePunctuation.lowercaseString) <= 3
+                return self.stripThe.removePunctuation.lowercaseString.levenshtein(comparedString.stripThe.removePunctuation.lowercaseString) <= levenshteinCompareValue
             default:
                 return self == comparedString
         }

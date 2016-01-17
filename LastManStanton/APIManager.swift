@@ -56,7 +56,7 @@ class APIManager: NSObject {
                 
                 if let searchResult = response.result.value {
                     if let results = searchResult.results {
-                        personArray = results.filter({ $0.knownFor?.count > 0 })
+                        personArray = self.filterPersonResults(results) as! [Person]
                     }
                 }
                 
@@ -74,11 +74,16 @@ class APIManager: NSObject {
                 
                 if let searchResult = response.result.value {
                     if let results = searchResult.results {
-                        personArray = results
+                        personArray = self.filterPersonResults(results) as! [Person]
                     }
                 }
                 
                 completion(personArray: personArray)
         }
+    }
+    
+    func filterPersonResults(resultArray: [Person]) -> NSArray {
+        let personsThatAreKnown = resultArray.filter({ $0.knownFor?.count > 0 })
+        return personsThatAreKnown.filter({ $0.knownFor?.filter({ $0.mediaType == "movie" }).count > 0 })
     }
 }

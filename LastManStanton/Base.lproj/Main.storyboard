@@ -340,10 +340,10 @@
                                     <action selector="closeButtonTouched:" destination="Ij5-OG-Qwa" eventType="touchUpInside" id="a8s-2W-fTo"/>
                                 </connections>
                             </button>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="OA7-9H-X0j">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OA7-9H-X0j">
                                 <rect key="frame" x="20" y="80" width="560" height="446"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <string key="text">Last Man Stanton is a game from the popular comedy podcast Doug Loves Movies (http://douglovesmovies.com/). In this game, someone picks an actor or director with many credits to his or her name and players go around identifying movies that this person has acted in or directed until there is only one player left who is able to name a movie.  Unlike in the podcast, this app connects to The Movie Database (TMDb) instead of Leonard Maltin's movie app. Since TMDb is community sourced, there may be duplicate entries or items incorrectly marked as movies. This app is built to try to filter out the extraneous information, but it's not perfect. The game is still enjoyable, however, and I hope you have fun with it!</string>
+                                <mutableString key="text">Last Man Stanton is a game from the popular comedy podcast Doug Loves Movies (http://douglovesmovies.com/). In this game, someone picks an actor or director with many credits to his or her name and players go around identifying movies that this person has acted in or directed until there is only one player left who is able to name a movie.  Unlike in the podcast, this app connects to The Movie Database (TMDb) instead of Leonard Maltin's movie app. Since TMDb is community sourced, there may be duplicate entries or items incorrectly marked as movies. This app is built to try to filter out the extraneous information, but it's not perfect. The game is still enjoyable, however, and I hope you have fun with it!</mutableString>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                 <dataDetectorType key="dataDetectorTypes" link="YES"/>
@@ -355,7 +355,7 @@
                                     <constraint firstAttribute="width" constant="130" id="tvN-fB-jmf"/>
                                 </constraints>
                             </imageView>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="This product uses the TMDb API but is not endorsed or certified by TMDb." textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Klt-rt-TDM">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" text="This product uses the TMDb API but is not endorsed or certified by TMDb." textAlignment="center" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Klt-rt-TDM">
                                 <rect key="frame" x="20" y="567.5" width="560" height="24"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
@@ -435,7 +435,7 @@
                                     <outlet property="delegate" destination="sZP-zl-ubX" id="abP-HB-F88"/>
                                 </connections>
                             </tableView>
-                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="oyC-wO-LNf">
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="oyC-wO-LNf">
                                 <rect key="frame" x="0.0" y="290" width="600" height="20"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="600" id="6xh-qq-0AE"/>

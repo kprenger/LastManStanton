@@ -24,6 +24,7 @@ class MovieListViewController: UIViewController {
     
     var gameOver = false
     var someoneGuessedCorrect = false
+    var madeItThroughRound = false
     var fuzzySearchLevel = 1
     var guessTimeLimit = 1
     var numberOfPlayers = 1
@@ -112,13 +113,34 @@ class MovieListViewController: UIViewController {
     }
     
     func incrementPlayer() {
+        
         let playersStillPlaying = playersInGame.filter({ $0 })
-        if (playersStillPlaying.count < 1) {
+        currentPlayer += 1
+        
+        if (currentPlayer > numberOfPlayers) {
+            madeItThroughRound = true
+            currentPlayer = 1
+        }
+        
+        if (!playersInGame[currentPlayer - 1] && playersStillPlaying.count > 1) {
+            incrementPlayer()
+            return
+        }
+        
+        if (playersStillPlaying.count < 2 && madeItThroughRound) {
             timer.invalidate()
-            showEndGameAlert(currentPlayer, someoneGuessedCorrect: someoneGuessedCorrect,
+            var winningPlayer = 0
+            
+            if let playerIndex = playersInGame.indexOf(true) {
+                winningPlayer = playerIndex + 1
+            }
+            
+            showEndGameAlert(winningPlayer, someoneGuessedCorrect: someoneGuessedCorrect,
                 clickedShowAnswers: {
                     self.guessButton.userInteractionEnabled = false
                     self.guessButton.alpha = 0.3
+                    self.guessTextField.userInteractionEnabled = false
+                    self.guessTextField.alpha = 0.3
                     self.correctGuesses = self.allMovieArray.sort({ $0.title < $1.title })
                     self.movieArray = [Movie]()
                     self.movieTableView.reloadData()
@@ -136,6 +158,7 @@ class MovieListViewController: UIViewController {
                     }
                     self.currentPlayer = self.numberOfPlayers
                     self.incrementPlayer()
+                    self.madeItThroughRound = false
                     
                     self.showStartGameAlert({self.startTimer()})
                 },
@@ -146,22 +169,13 @@ class MovieListViewController: UIViewController {
             return
         }
         
-        currentPlayer += 1
-        if (currentPlayer > numberOfPlayers) {
-            currentPlayer = 1
-        }
-        
-        if (!playersInGame[currentPlayer - 1]) {
-            incrementPlayer()
-        }
-        
         currentTime = guessTimeLimit * 60
         timerLabel.text = Formatters.timeFormat(currentTime)
         whoseTurnLabel.text = "Player " + String(currentPlayer) + "'s turn"
     }
     
     func checkGuessInList(guess: String) -> Movie? {
-        if (guess.isEmpty) {
+        if (guess.removePunctuation.isEmpty) {
             self.showGuessResultAlert(GuessType.BlankGuess, playerNumber: 1, clickedOK: {})
             
             return Movie(dummyMovie: true)
