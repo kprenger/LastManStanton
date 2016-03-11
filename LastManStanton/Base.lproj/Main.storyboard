@@ -343,7 +343,7 @@
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OA7-9H-X0j">
                                 <rect key="frame" x="20" y="80" width="560" height="446"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <mutableString key="text">Last Man Stanton is a game from the popular comedy podcast Doug Loves Movies (http://douglovesmovies.com/). In this game, someone picks an actor or director with many credits to his or her name and players go around identifying movies that this person has acted in or directed until there is only one player left who is able to name a movie.  Unlike in the podcast, this app connects to The Movie Database (TMDb) instead of Leonard Maltin's movie app. Since TMDb is community sourced, there may be duplicate entries or items incorrectly marked as movies. This app is built to try to filter out the extraneous information, but it's not perfect. The game is still enjoyable, however, and I hope you have fun with it!</mutableString>
+                                <string key="text">Last Man Stanton is a game from the popular comedy podcast Doug Loves Movies (http://douglovesmovies.com/). In this game, someone picks an actor or director with many credits to his or her name and players go around identifying movies that this person has acted in or directed until there is only one player left who is able to name a movie.  Unlike in the podcast, this app connects to The Movie Database (TMDb) instead of Leonard Maltin's movie app. Since TMDb is community sourced, there may be duplicate entries or items incorrectly marked as movies. This app is built to try to filter out the extraneous information, but it's not perfect. The game is still enjoyable, however, and I hope you have fun with it!</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                 <dataDetectorType key="dataDetectorTypes" link="YES"/>
@@ -534,60 +534,8 @@
                                     <action selector="guessButtonTouched:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Rul-Om-b9j"/>
                                 </connections>
                             </button>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" showsSelectionImmediatelyOnTouchBegin="NO" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="ptG-XD-4RR">
-                                <rect key="frame" x="0.0" y="230" width="600" height="370"/>
-                                <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
-                                <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="guessedMovieCellID" textLabel="vWE-M8-4BL" style="IBUITableViewCellStyleDefault" id="8dQ-wZ-GBH">
-                                        <rect key="frame" x="0.0" y="49.5" width="600" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="8dQ-wZ-GBH" id="kEg-hY-hkI">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="vWE-M8-4BL">
-                                                    <rect key="frame" x="15" y="0.0" width="570" height="43.5"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="notGuessedMovieCellID" id="v89-Dx-jOB">
-                                        <rect key="frame" x="0.0" y="93.5" width="600" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="v89-Dx-jOB" id="rco-hs-aok">
-                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tzW-7i-Rwc">
-                                                    <rect key="frame" x="8" y="0.0" width="584" height="43.5"/>
-                                                    <color key="backgroundColor" red="0.0" green="0.66620370370370374" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <userDefinedRuntimeAttributes>
-                                                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                            <integer key="value" value="10"/>
-                                                        </userDefinedRuntimeAttribute>
-                                                    </userDefinedRuntimeAttributes>
-                                                </view>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstItem="tzW-7i-Rwc" firstAttribute="leading" secondItem="rco-hs-aok" secondAttribute="leading" constant="8" id="0RP-2C-LCn"/>
-                                                <constraint firstItem="tzW-7i-Rwc" firstAttribute="top" secondItem="rco-hs-aok" secondAttribute="top" id="Sxj-mu-ffi"/>
-                                                <constraint firstAttribute="bottom" secondItem="tzW-7i-Rwc" secondAttribute="bottom" id="hod-CU-bzu"/>
-                                                <constraint firstAttribute="trailing" secondItem="tzW-7i-Rwc" secondAttribute="trailing" constant="8" id="tcD-EV-bFu"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                </prototypes>
-                                <connections>
-                                    <outlet property="dataSource" destination="BYZ-38-t0r" id="yAw-g9-18F"/>
-                                    <outlet property="delegate" destination="BYZ-38-t0r" id="jqR-wY-Yh3"/>
-                                </connections>
-                            </tableView>
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="fxR-Ks-hQ5">
-                                <rect key="frame" x="0.0" y="290" width="600" height="20"/>
+                                <rect key="frame" x="0.0" y="44" width="600" height="20"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="600" id="QAb-Qy-hud"/>
                                     <constraint firstAttribute="height" constant="20" id="veG-NB-U8Y"/>
@@ -628,11 +576,58 @@
                                     <segue destination="1ir-xy-Uuh" kind="unwind" identifier="startOverSegue" unwindAction="startOver:" id="wcm-6H-7NO"/>
                                 </connections>
                             </button>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" showsSelectionImmediatelyOnTouchBegin="NO" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="ptG-XD-4RR">
+                                <rect key="frame" x="0.0" y="230" width="600" height="370"/>
+                                <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="guessedMovieCellID" textLabel="vWE-M8-4BL" style="IBUITableViewCellStyleDefault" id="8dQ-wZ-GBH">
+                                        <rect key="frame" x="0.0" y="49.5" width="600" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="8dQ-wZ-GBH" id="kEg-hY-hkI">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="vWE-M8-4BL">
+                                                    <rect key="frame" x="15" y="0.0" width="570" height="43.5"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="notGuessedMovieCellID" id="v89-Dx-jOB">
+                                        <rect key="frame" x="0.0" y="93.5" width="600" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="v89-Dx-jOB" id="rco-hs-aok">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tzW-7i-Rwc">
+                                                    <rect key="frame" x="8" y="0.0" width="584" height="43.5"/>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </view>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="tzW-7i-Rwc" firstAttribute="leading" secondItem="rco-hs-aok" secondAttribute="leading" constant="8" id="0RP-2C-LCn"/>
+                                                <constraint firstItem="tzW-7i-Rwc" firstAttribute="top" secondItem="rco-hs-aok" secondAttribute="top" id="Sxj-mu-ffi"/>
+                                                <constraint firstAttribute="bottom" secondItem="tzW-7i-Rwc" secondAttribute="bottom" id="hod-CU-bzu"/>
+                                                <constraint firstAttribute="trailing" secondItem="tzW-7i-Rwc" secondAttribute="trailing" constant="8" id="tcD-EV-bFu"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="BYZ-38-t0r" id="yAw-g9-18F"/>
+                                    <outlet property="delegate" destination="BYZ-38-t0r" id="jqR-wY-Yh3"/>
+                                </connections>
+                            </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <gestureRecognizers/>
                         <constraints>
-                            <constraint firstItem="fxR-Ks-hQ5" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="2dJ-Kv-Po2"/>
+                            <constraint firstItem="fxR-Ks-hQ5" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" constant="-246" id="2dJ-Kv-Po2"/>
                             <constraint firstItem="6qK-i3-Gg9" firstAttribute="top" secondItem="Qy3-cu-Rtz" secondAttribute="bottom" constant="8" id="45S-Hd-juY"/>
                             <constraint firstAttribute="trailing" secondItem="ptG-XD-4RR" secondAttribute="trailing" id="4SB-53-sNe"/>
                             <constraint firstItem="93l-KM-NqY" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="6Cd-Ka-dyP"/>

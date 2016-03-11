@@ -304,12 +304,18 @@ extension MovieListViewController: UITableViewDataSource {
             case 0:
                 let cell = tableView.dequeueReusableCellWithIdentifier(guessedMovieCellID)!
                 let movie = correctGuesses[indexPath.row]
-            
                 cell.textLabel!.text = movie.title
+                
                 return cell
             
             default:
                 let cell = tableView.dequeueReusableCellWithIdentifier(notGuessedMovieCellID)!
+                cell.contentView.layer.borderColor = UIColor.blackColor().CGColor
+                cell.contentView.layer.borderWidth = 2.0
+                cell.contentView.layer.cornerRadius = 10.0
+                cell.textLabel!.text = "???"
+                cell.textLabel!.textAlignment = .Center
+                
                 return cell
         }
     }

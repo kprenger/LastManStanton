@@ -52,6 +52,15 @@ extension UIViewController {
             _ in clickedOK()}))
         
         self.presentViewController(alert, animated: true, completion: {})
+        
+        //Sets auto-dismiss for alert after 5 seconds
+        //
+        let delay = 5.0 * Double(NSEC_PER_SEC)
+        let time = dispatch_time(DISPATCH_TIME_NOW, Int64(delay))
+        dispatch_after(time, dispatch_get_main_queue()) { () -> Void in
+            clickedOK()
+            alert.dismissViewControllerAnimated(true, completion: nil)
+        }
     }
     
     func showStartGameAlert(clickedOK: () -> Void) {

@@ -83,7 +83,7 @@ class APIManager: NSObject {
     }
     
     func filterPersonResults(resultArray: [Person]) -> NSArray {
-        let personsThatAreKnown = resultArray.filter({ $0.knownFor?.count > 0 })
+        let personsThatAreKnown = resultArray.filter({ $0.knownFor?.count > 2 })
         return personsThatAreKnown.filter({ $0.knownFor?.filter({ $0.mediaType == "movie" }).count > 0 })
     }
 }
