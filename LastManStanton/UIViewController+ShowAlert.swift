@@ -19,8 +19,8 @@ extension UIViewController {
     }
 
     func showNoDataAlert() {
-        let alert = UIAlertController(title: "No Data Found", message: "No data was found. Please ensure you are connected to the internet.", preferredStyle: UIAlertControllerStyle.Alert)
-        alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: nil))
+        let alert = UIAlertController(title: "No Data Found", message: "No data was found. Please ensure you are connected to the internet.", preferredStyle: .Alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
         
         self.presentViewController(alert, animated: true, completion: {})
     }
@@ -47,8 +47,8 @@ extension UIViewController {
                 message = "Please enter a valid answer (with letters and numbers)!"
         }
         
-        let alert = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.Alert)
-        alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .Alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .Default, handler: {
             _ in clickedOK()}))
         
         self.presentViewController(alert, animated: true, completion: {})
@@ -64,8 +64,8 @@ extension UIViewController {
     }
     
     func showStartGameAlert(clickedOK: () -> Void) {
-        let alert = UIAlertController(title: "Start!", message: "Player 1, you are up.", preferredStyle: UIAlertControllerStyle.Alert)
-        alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: {_ in clickedOK()}))
+        let alert = UIAlertController(title: "Start!", message: "Player 1, you are up.", preferredStyle: .Alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .Default, handler: {_ in clickedOK()}))
         
         self.presentViewController(alert, animated: true, completion: {})
     }
@@ -79,10 +79,18 @@ extension UIViewController {
             message = "No one guessed correctly. It's a tie!"
         }
         
-        let alert = UIAlertController(title: "Game Over!", message: message, preferredStyle: UIAlertControllerStyle.Alert)
-        alert.addAction(UIAlertAction(title: "Show All Movies", style: UIAlertActionStyle.Default, handler: {_ in clickedShowAnswers()}))
-        alert.addAction(UIAlertAction(title: "Redo This Person", style: UIAlertActionStyle.Default, handler: {_ in clickedRedo()}))
-        alert.addAction(UIAlertAction(title: "Pick a New Person", style: UIAlertActionStyle.Default, handler: {_ in clickedStartOver()}))
+        let alert = UIAlertController(title: "Game Over!", message: message, preferredStyle: .Alert)
+        alert.addAction(UIAlertAction(title: "Show All Movies", style: .Default, handler: {_ in clickedShowAnswers()}))
+        alert.addAction(UIAlertAction(title: "Redo This Person", style: .Default, handler: {_ in clickedRedo()}))
+        alert.addAction(UIAlertAction(title: "Pick a New Person", style: .Default, handler: {_ in clickedStartOver()}))
+        
+        self.presentViewController(alert, animated: true, completion: {})
+    }
+    
+    func showMovieMasterAlert(actorName: String, clickedStartOver: () -> Void) {
+        let message = "You certainly know \(actorName)'s body of work! Why not play someone else?"
+        let alert = UIAlertController(title: "Wow!", message: message, preferredStyle: .Alert)
+        alert.addAction(UIAlertAction(title: "Pick a New Person", style: .Default, handler: { _ in clickedStartOver()}))
         
         self.presentViewController(alert, animated: true, completion: {})
     }

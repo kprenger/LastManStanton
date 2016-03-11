@@ -88,14 +88,20 @@ class MovieListViewController: UIViewController {
         
         incrementPlayer()
         
-        if (!gameOver) {
-            showGuessResultAlert(GuessType.Correct, playerNumber: currentPlayer, clickedOK: {self.startTimer()})
-        }
-        
         correctGuesses.insert(guessedMovie, atIndex: 0)
         
         if let index = movieArray.indexOf({ $0.id == guessedMovie.id }) {
             movieArray.removeAtIndex(index)
+        }
+        
+        if (!gameOver && movieArray.count > 0) {
+            showGuessResultAlert(GuessType.Correct, playerNumber: currentPlayer, clickedOK: {self.startTimer()})
+        } else if (movieArray.count == 0) {
+            showMovieMasterAlert(selectedPerson.name!, clickedStartOver: { () -> Void in
+                self.performSegueWithIdentifier(startOverSegueID, sender: self)
+            })
+            
+            gameOver = true
         }
         
         updateMovieTable()
