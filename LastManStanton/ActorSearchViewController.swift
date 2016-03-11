@@ -128,7 +128,8 @@ extension ActorSearchViewController: UITableViewDelegate {
         optionsController.isOptions = true
         optionsController.delegate = self
         
-        self.presentViewController(optionsController, animated: true, completion: nil)
+        searchController.active = false
+        presentViewController(optionsController, animated: true, completion: nil)
     }
 }
 

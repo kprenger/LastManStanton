@@ -99,6 +99,10 @@
                             <view alpha="0.40000000000000002" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LHw-qu-4DI">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                <gestureRecognizers/>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="ZAg-PU-Jlw" appends="YES" id="XIQ-g9-dMk"/>
+                                </connections>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ii6-VE-as8">
                                 <rect key="frame" x="168" y="201" width="265" height="197"/>
@@ -230,6 +234,11 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zfE-FJ-b6Z" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="ZAg-PU-Jlw">
+                    <connections>
+                        <action selector="closeButtonTouched:" destination="Ds5-kB-oeE" id="gtT-Ry-thK"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="-646" y="1117"/>
         </scene>
