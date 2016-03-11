@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol OptionsInfoViewControllerDelegate: class {
+    func optionsClosed()
+}
+
 class OptionsInfoViewController: UIViewController {
     
     internal var isOptions = false
@@ -23,6 +27,8 @@ class OptionsInfoViewController: UIViewController {
     var guessTimeLimit = 5
     var fuzzySearchLevel = 0
     
+    weak var delegate:OptionsInfoViewControllerDelegate?
+    
     @IBOutlet weak var numberOfPlayersLabel: UILabel!
     @IBOutlet weak var guessTimeLimitLabel: UILabel!
     @IBOutlet weak var fuzzySearchLevelLabel: UILabel!
@@ -32,7 +38,7 @@ class OptionsInfoViewController: UIViewController {
     @IBOutlet weak var guessTimeLimitStepper: UIStepper!
     @IBOutlet weak var fuzzySearchLevelStepper: UIStepper!
     
-    //MARK - Lifecycle
+    //MARK: - Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,22 +50,22 @@ class OptionsInfoViewController: UIViewController {
             
             numberOfPlayersStepper.value = Double(numberOfPlayers)
             guessTimeLimitStepper.value = Double(guessTimeLimit)
-            fuzzySearchLevelStepper.value = Double(fuzzySearchLevel)
+//            fuzzySearchLevelStepper.value = Double(fuzzySearchLevel)
             
             updateLabels()
         }
     }
     
-    //MARK - Update labels
+    //MARK: - Update labels
     
     func updateLabels() {
         numberOfPlayersLabel.text = String(numberOfPlayers)
         guessTimeLimitLabel.text = String(guessTimeLimit)
-        fuzzySearchLevelLabel.text = fuzzySearchOptions[fuzzySearchLevel]
-        comparisonDescription.text = fuzzySearchDescriptions[fuzzySearchLevel]
+//        fuzzySearchLevelLabel.text = fuzzySearchOptions[fuzzySearchLevel]
+//        comparisonDescription.text = fuzzySearchDescriptions[fuzzySearchLevel]
     }
     
-    //MARK - Steppers touched
+    //MARK: - Steppers touched
     
     @IBAction func numberOfPlayersChanged(sender: UIStepper) {
         numberOfPlayers = Int(sender.value)
@@ -79,7 +85,13 @@ class OptionsInfoViewController: UIViewController {
         PListUtility.sharedInstance.writeToPlist(Constants.fuzzySearchLevelString, value: fuzzySearchLevel)
     }
     
+    //MARK: - Close button touched
+    
     @IBAction func closeButtonTouched(sender: AnyObject) {
-        dismissViewControllerAnimated(true, completion: {})
+        dismissViewControllerAnimated(true, completion: {
+            if let delegate = self.delegate {
+                delegate.optionsClosed()
+            }
+        })
     }
 }

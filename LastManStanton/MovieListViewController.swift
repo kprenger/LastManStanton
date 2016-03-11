@@ -327,7 +327,7 @@ extension MovieListViewController: UITableViewDelegate {
     
 }
 
-//MARK - TextField delegate
+//MARK: - TextField delegate
 
 extension MovieListViewController: UITextFieldDelegate {
     func textFieldShouldReturn(textField: UITextField) -> Bool {

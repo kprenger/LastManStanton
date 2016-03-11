@@ -24,7 +24,7 @@ class ActorSearchViewController: UIViewController {
     @IBOutlet weak var personTableView: UITableView!
     @IBOutlet weak var spinner: UIActivityIndicatorView!
 
-    //MARK - Lifecycle
+    //MARK: - Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,18 +35,18 @@ class ActorSearchViewController: UIViewController {
         searchController.dimsBackgroundDuringPresentation = false
         searchController.searchBar.placeholder = "Search for an actor or director"
         
-        if (!isSuggestion) {
-            personTableView.tableHeaderView = searchController.searchBar
-            searchController.searchBar.sizeToFit()
-            searchController.searchBar.delegate = self
-        } else {
-            self.spinner.startAnimating()
-            
-            APIManager.sharedInstance.getPopularPersons { (personArray) -> Void in
-                self.spinner.stopAnimating()
-                self.personArray = personArray as! [Person]
-                self.personTableView.reloadData()
-            }
+        personTableView.tableHeaderView = searchController.searchBar
+        searchController.searchBar.sizeToFit()
+        searchController.searchBar.delegate = self
+        
+        //Pre-load list with popular actors
+        //
+        self.spinner.startAnimating()
+        
+        APIManager.sharedInstance.getPopularPersons { (personArray) -> Void in
+            self.spinner.stopAnimating()
+            self.personArray = personArray as! [Person]
+            self.personTableView.reloadData()
         }
     }
     
@@ -57,7 +57,7 @@ class ActorSearchViewController: UIViewController {
         self.searchController.view.removeFromSuperview()
     }
     
-    //MARK - Search function
+    //MARK: - Search function
     
     func findPersonsForSearchText(searchText: String) {
         self.spinner.startAnimating()
@@ -69,7 +69,7 @@ class ActorSearchViewController: UIViewController {
         }
     }
     
-    //MARK - Segues
+    //MARK: - Segues
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if (segue.identifier == movieListSegueID) {
@@ -80,14 +80,22 @@ class ActorSearchViewController: UIViewController {
         }
     }
     
-    //MARK - Button touches
+    //MARK: - Button touches
     
     @IBAction func closeButtonTouched(sender: AnyObject) {
         dismissViewControllerAnimated(true, completion: {})
     }
 }
 
-//MARK - TableView Data Source
+//MARK: - OptionsInfoViewController delegate
+
+extension ActorSearchViewController: OptionsInfoViewControllerDelegate {
+    func optionsClosed() {
+        self.performSegueWithIdentifier("movieList", sender: self)
+    }
+}
+
+//MARK: - TableView Data Source
 
 extension ActorSearchViewController: UITableViewDataSource {
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -104,7 +112,7 @@ extension ActorSearchViewController: UITableViewDataSource {
     }
 }
 
-//MARK - TableView Delegate
+//MARK: - TableView Delegate
 
 extension ActorSearchViewController: UITableViewDelegate {
     func tableView(tableView: UITableView, willSelectRowAtIndexPath indexPath: NSIndexPath) -> NSIndexPath? {
@@ -113,9 +121,18 @@ extension ActorSearchViewController: UITableViewDelegate {
         
         return indexPath
     }
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let optionsController = storyboard.instantiateViewControllerWithIdentifier("optionsVC") as! OptionsInfoViewController
+        optionsController.isOptions = true
+        optionsController.delegate = self
+        
+        self.presentViewController(optionsController, animated: true, completion: nil)
+    }
 }
 
-//MARK - Search Results controller
+//MARK: - Search Results controller
 
 extension ActorSearchViewController: UISearchResultsUpdating {
     func updateSearchResultsForSearchController(searchController: UISearchController) {
@@ -129,7 +146,7 @@ extension ActorSearchViewController: UISearchResultsUpdating {
     }
 }
 
-//MARK - SearchBar delegate
+//MARK: - SearchBar delegate
 
 extension ActorSearchViewController: UISearchBarDelegate {
     func searchBarSearchButtonClicked(searchBar: UISearchBar) {

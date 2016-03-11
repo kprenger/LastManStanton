@@ -10,7 +10,7 @@ import UIKit
 
 extension String {
     
-    //MARK - String mutation
+    //MARK: - String mutation
     
     var removePunctuation: String {
         get {
@@ -37,7 +37,7 @@ extension String {
         return words
     }
     
-    //MARK - Levenshtein distance functions
+    //MARK: - Levenshtein distance functions
     
     //Pulled from this gist: https://gist.github.com/bgreenlee/52d93a1d8fa1b8c1f38b
     
