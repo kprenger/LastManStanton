@@ -97,6 +97,12 @@ class OptionsInfoViewController: UIViewController {
             }
         })
         
-        Answers.logCustomEventWithName("Button Press", customAttributes: ["buttonType":"Close", "closedView":"Options View"])
+        var viewType = "Info View"
+        
+        if (isOptions) {
+            viewType = "Options View"
+        }
+        
+        Answers.logCustomEventWithName("Button Press", customAttributes: ["buttonType":"Close", "closedView":viewType])
     }
 }
