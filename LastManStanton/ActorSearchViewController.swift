@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Crashlytics
 
 let movieListSegueID = "movieList"
 let nameCellID = "nameCellID"
@@ -75,6 +76,8 @@ class ActorSearchViewController: UIViewController {
         if (segue.identifier == movieListSegueID) {
             let movieListController = segue.destinationViewController as! MovieListViewController
             movieListController.selectedPerson = selectedPerson
+            
+            Answers.logLevelStart("Start Game", customAttributes: ["actorName":selectedPerson.name!])
         } else {
             super.prepareForSegue(segue, sender: sender)
         }
@@ -84,6 +87,8 @@ class ActorSearchViewController: UIViewController {
     
     @IBAction func closeButtonTouched(sender: AnyObject) {
         dismissViewControllerAnimated(true, completion: {})
+        
+        Answers.logCustomEventWithName("Button Press", customAttributes: ["buttonType":"Close", "closedView":"Actor Search"])
     }
 }
 

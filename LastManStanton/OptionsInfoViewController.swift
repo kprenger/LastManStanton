@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Crashlytics
 
 protocol OptionsInfoViewControllerDelegate: class {
     func optionsClosed()
@@ -53,6 +54,8 @@ class OptionsInfoViewController: UIViewController {
 //            fuzzySearchLevelStepper.value = Double(fuzzySearchLevel)
             
             updateLabels()
+        } else {
+            Answers.logContentViewWithName("Info View", contentType: "Info", contentId: "info-1", customAttributes: nil)
         }
     }
     
@@ -93,5 +96,7 @@ class OptionsInfoViewController: UIViewController {
                 delegate.optionsClosed()
             }
         })
+        
+        Answers.logCustomEventWithName("Button Press", customAttributes: ["buttonType":"Close", "closedView":"Options View"])
     }
 }

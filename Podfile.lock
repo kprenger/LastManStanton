@@ -3,16 +3,23 @@ PODS:
   - AlamofireObjectMapper (2.1.0):
     - Alamofire (~> 3.1.0)
     - ObjectMapper (~> 1.0)
+  - Crashlytics (3.7.0):
+    - Fabric (~> 1.6.3)
+  - Fabric (1.6.7)
   - ObjectMapper (1.0.1)
 
 DEPENDENCIES:
   - Alamofire (~> 3.0)
   - AlamofireObjectMapper (~> 2.0)
+  - Crashlytics
+  - Fabric
   - ObjectMapper (~> 1.0)
 
 SPEC CHECKSUMS:
   Alamofire: 9f93b56389e48def9220dd57d1f44b1927229a5a
   AlamofireObjectMapper: 24097576202064f8b0a583452dd934064f78dc0e
+  Crashlytics: c3a2333dea9e2733d2777f730910321fc9e25c0d
+  Fabric: caf7580c725e64db144f610ac65cd60956911dc7
   ObjectMapper: 98524bac0dca46c6b3d5ee02cd410fc700ec6ce2
 
 COCOAPODS: 0.39.0

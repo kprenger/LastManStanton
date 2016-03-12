@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Crashlytics
 
 let guessedMovieCellID = "guessedMovieCellID"
 let notGuessedMovieCellID = "notGuessedMovieCellID"
@@ -99,7 +100,11 @@ class MovieListViewController: UIViewController {
         } else if (movieArray.count == 0) {
             showMovieMasterAlert(selectedPerson.name!, clickedStartOver: { () -> Void in
                 self.performSegueWithIdentifier(startOverSegueID, sender: self)
+                
+                Answers.logCustomEventWithName("Button Press", customAttributes: ["buttonType":"Start Over"])
             })
+            
+            Answers.logLevelEnd("Finish Game", score: correctGuesses.count, success: true, customAttributes: ["actorName":selectedPerson.name!])
             
             gameOver = true
         }
@@ -150,6 +155,8 @@ class MovieListViewController: UIViewController {
                     self.correctGuesses = self.allMovieArray.sort({ $0.title < $1.title })
                     self.movieArray = [Movie]()
                     self.movieTableView.reloadData()
+                    
+                    Answers.logCustomEventWithName("Button Press", customAttributes: ["buttonType":"Show Answers"])
                 },
                 clickedRedo:  {
                     self.correctGuesses = [Movie]()
@@ -167,10 +174,16 @@ class MovieListViewController: UIViewController {
                     self.madeItThroughRound = false
                     
                     self.showStartGameAlert({self.startTimer()})
+                    
+                    Answers.logCustomEventWithName("Button Press", customAttributes: ["buttonType":"Redo Person", "actorName":self.selectedPerson.name!])
                 },
                 clickedStartOver: {
                     self.performSegueWithIdentifier(startOverSegueID, sender: self)
+                    
+                    Answers.logCustomEventWithName("Button Press", customAttributes: ["buttonType":"Start Over"])
             })
+            
+            Answers.logLevelEnd("Finish Game", score: correctGuesses.count, success: false, customAttributes: ["actorName":selectedPerson.name!])
             gameOver = true
             return
         }
@@ -239,6 +252,8 @@ class MovieListViewController: UIViewController {
     
     @IBAction func closeButtonTouched(sender: AnyObject) {
         timer.invalidate()
+        
+        Answers.logCustomEventWithName("Button Press", customAttributes: ["buttonType":"Close", "closedView":"Movie List"])
     }
     
     @IBAction func guessButtonTouched(sender: AnyObject) {
