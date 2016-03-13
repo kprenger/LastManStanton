@@ -48,3 +48,17 @@ class Movie: Mappable {
     }
     
 }
+
+//MARK: - Hashable extension
+
+extension Movie: Hashable {
+    var hashValue: Int {
+        return id!
+    }
+}
+
+//MARK: - Equatable function
+
+func ==(lhs: Movie, rhs: Movie) -> Bool {
+    return lhs.id == rhs.id && lhs.title == rhs.title
+}

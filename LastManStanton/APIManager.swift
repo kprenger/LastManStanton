@@ -38,6 +38,8 @@ class APIManager: NSObject {
                 if let person = response.result.value {
                     movieArray.appendContentsOf(person.cast!)
                     movieArray.appendContentsOf(person.crew!.filter({$0.job == "Director"}))
+                    
+                    movieArray = Array(Set<Movie>(movieArray))
                 }
                 
                 //Only return movies that have been released
