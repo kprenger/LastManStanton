@@ -4,26 +4,8 @@ This README would normally document whatever steps are necessary to get your app
 
 ### What is this repository for? ###
 
-* Quick summary
-* Version
-* [Learn Markdown](https://bitbucket.org/tutorials/markdowndemo)
-
-### How do I get set up? ###
-
-* Summary of set up
-* Configuration
-* Dependencies
-* Database configuration
-* How to run tests
-* Deployment instructions
-
-### Contribution guidelines ###
-
-* Writing tests
-* Code review
-* Other guidelines
+* LastManStanton for iOS. Movie trivia game based on Doug Loves Movies podcast game of the same name.
 
 ### Who do I talk to? ###
 
-* Repo owner or admin
-* Other community or team contact
+* Kurt Prenger (mytinysandbox@gmail.com)
