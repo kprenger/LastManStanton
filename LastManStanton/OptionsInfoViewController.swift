@@ -30,6 +30,8 @@ class OptionsInfoViewController: UIViewController {
     
     weak var delegate:OptionsInfoViewControllerDelegate?
     
+    @IBOutlet weak var versionLabel: UILabel!
+    
     @IBOutlet weak var numberOfPlayersLabel: UILabel!
     @IBOutlet weak var guessTimeLimitLabel: UILabel!
     @IBOutlet weak var fuzzySearchLevelLabel: UILabel!
@@ -55,6 +57,10 @@ class OptionsInfoViewController: UIViewController {
             
             updateLabels()
         } else {
+            let build = NSBundle.mainBundle().infoDictionary!["CFBundleVersion"]
+            let version = NSBundle.mainBundle().infoDictionary!["CFBundleShortVersionString"]
+            versionLabel.text = "Version: \(version!) (\(build!))"
+            
             Answers.logContentViewWithName("Info View", contentType: "Info", contentId: "info-1", customAttributes: nil)
         }
     }

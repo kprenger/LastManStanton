@@ -17,6 +17,13 @@ extension UIViewController {
         case AlreadyGuessed
         case BlankGuess
     }
+    
+    func showNoNetworkAlert(clickedOK: () -> Void) {
+        let alert = UIAlertController(title: "No Network Connection", message: "This app requires an internet connection for the most enjoyment.", preferredStyle: .Alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .Default, handler: {_ in clickedOK()}))
+        
+        self.presentViewController(alert, animated: true, completion: {})
+    }
 
     func showNoDataAlert() {
         let alert = UIAlertController(title: "No Data Found", message: "No data was found. Please ensure you are connected to the internet.", preferredStyle: .Alert)

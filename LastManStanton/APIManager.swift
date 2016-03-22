@@ -26,7 +26,7 @@ class APIManager: NSObject {
     override init() {
         apiKey = plist!["tmdbAPIKey"] as! String
     }
-
+    
     func getMoviesForPerson(personID: Int, completion: (movieArray: NSArray) -> Void) {
         let URL = host + apiVersion + personRoute + String(personID) + "/movie_credits"
         

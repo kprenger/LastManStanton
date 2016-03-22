@@ -7,6 +7,7 @@ pod 'ObjectMapper', '~> 1.0'
 pod 'AlamofireObjectMapper', '~> 2.0'
 pod 'Fabric'
 pod 'Crashlytics'
+pod 'ReachabilitySwift'
 
 post_install do | installer |
   require 'fileutils'

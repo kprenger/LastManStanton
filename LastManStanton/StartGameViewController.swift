@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import ReachabilitySwift
 
 let knowNameSegueID = "knowName"
 let needSuggestionSegueID = "needSuggestion"
@@ -19,6 +20,25 @@ class StartGameViewController: UIViewController {
     
     @IBAction func startOver(segue: UIStoryboardSegue) {
         
+    }
+    
+    @IBAction func startGameButtonTouched(sender: AnyObject) {
+        let reachability: Reachability
+        do {
+            reachability = try Reachability.reachabilityForInternetConnection()
+            
+            if (reachability.currentReachabilityStatus == .NotReachable) {
+                self.showNoNetworkAlert({ () -> Void in
+                    self.performSegueWithIdentifier(knowNameSegueID, sender: self)
+                })
+            } else {
+                performSegueWithIdentifier(knowNameSegueID, sender: self)
+            }
+        } catch {
+            self.showNoNetworkAlert({ () -> Void in
+                self.performSegueWithIdentifier(knowNameSegueID, sender: self)
+            })
+        }
     }
     
     override func viewDidLoad() {
