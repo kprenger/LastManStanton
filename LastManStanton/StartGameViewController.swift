@@ -28,16 +28,12 @@ class StartGameViewController: UIViewController {
             reachability = try Reachability.reachabilityForInternetConnection()
             
             if (reachability.currentReachabilityStatus == .NotReachable) {
-                self.showNoNetworkAlert({ () -> Void in
-                    self.performSegueWithIdentifier(knowNameSegueID, sender: self)
-                })
+                self.showNoNetworkAlert({})
             } else {
                 performSegueWithIdentifier(knowNameSegueID, sender: self)
             }
         } catch {
-            self.showNoNetworkAlert({ () -> Void in
-                self.performSegueWithIdentifier(knowNameSegueID, sender: self)
-            })
+            self.showNoNetworkAlert({})
         }
     }
     

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import ReachabilitySwift
 import Crashlytics
 
 let movieListSegueID = "movieList"
@@ -96,7 +97,18 @@ class ActorSearchViewController: UIViewController {
 
 extension ActorSearchViewController: OptionsInfoViewControllerDelegate {
     func optionsClosed() {
-        self.performSegueWithIdentifier("movieList", sender: self)
+        let reachability: Reachability
+        do {
+            reachability = try Reachability.reachabilityForInternetConnection()
+            
+            if (reachability.currentReachabilityStatus == .NotReachable) {
+                self.showNoNetworkAlert({ self.closeButtonTouched(self) })
+            } else {
+                self.performSegueWithIdentifier("movieList", sender: self)
+            }
+        } catch {
+            self.showNoNetworkAlert({ self.closeButtonTouched(self) })
+        }
     }
 }
 

@@ -19,7 +19,7 @@ extension UIViewController {
     }
     
     func showNoNetworkAlert(clickedOK: () -> Void) {
-        let alert = UIAlertController(title: "No Network Connection", message: "This app requires an internet connection for the most enjoyment.", preferredStyle: .Alert)
+        let alert = UIAlertController(title: "No Network Connection", message: "This app requires an internet connection for the most enjoyment. Please ensure you are connected.", preferredStyle: .Alert)
         alert.addAction(UIAlertAction(title: "OK", style: .Default, handler: {_ in clickedOK()}))
         
         self.presentViewController(alert, animated: true, completion: {})
