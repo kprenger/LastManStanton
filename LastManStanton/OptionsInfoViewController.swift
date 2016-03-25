@@ -68,8 +68,8 @@ class OptionsInfoViewController: UIViewController {
     //MARK: - Update labels
     
     func updateLabels() {
-        numberOfPlayersLabel.text = String(numberOfPlayers)
-        guessTimeLimitLabel.text = String(guessTimeLimit)
+        numberOfPlayersLabel.text = "Number of Players: \(String(numberOfPlayers))"
+        guessTimeLimitLabel.text = "Time Limit (minutes): \(String(guessTimeLimit))"
 //        fuzzySearchLevelLabel.text = fuzzySearchOptions[fuzzySearchLevel]
 //        comparisonDescription.text = fuzzySearchDescriptions[fuzzySearchLevel]
     }
