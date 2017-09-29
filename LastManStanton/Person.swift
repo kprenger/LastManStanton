@@ -15,13 +15,13 @@ class Person: Mappable {
     var name: String?
     var biography: String?
     var profileImagePath: String?
-    var birthday: NSDate?
-    var deathday: NSDate?
+    var birthday: Date?
+    var deathday: Date?
     var birthPlace: String?
     var popularity: Float?
     var knownFor: [Movie]?
     
-    required init(_ map: Map) {
+    required init(map: Map) {
         
     }
     
@@ -49,7 +49,7 @@ class PersonMovieCredits: Mappable {
     var crew: [Movie]?
     var id: String?
     
-    required init(_ map: Map) {
+    required init(map: Map) {
         
     }
     
@@ -68,7 +68,7 @@ class PersonSearchResult: Mappable {
     var totalResults: Int?
     var results: [Person]?
     
-    required init(_ map: Map) {
+    required init(map: Map) {
         
     }
     

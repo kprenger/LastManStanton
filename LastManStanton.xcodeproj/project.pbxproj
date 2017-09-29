@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7FDE15437816FF0E1D35980B /* Pods_LastManStanton.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B0E9C88BC71528C89717341 /* Pods_LastManStanton.framework */; };
 		F86FD22B1C10E70A00E0DBCE /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = F86FD22A1C10E70A00E0DBCE /* Settings.bundle */; };
 		F86FD22D1C10E8E900E0DBCE /* Formatters.swift in Sources */ = {isa = PBXBuildFile; fileRef = F86FD22C1C10E8E900E0DBCE /* Formatters.swift */; };
 		F86FD22F1C10EA5600E0DBCE /* String+Comparison.swift in Sources */ = {isa = PBXBuildFile; fileRef = F86FD22E1C10EA5600E0DBCE /* String+Comparison.swift */; };
@@ -25,13 +26,13 @@
 		F8D7E6891C0E5296009772C7 /* PListUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8D7E6881C0E5296009772C7 /* PListUtility.swift */; };
 		F8D7E68B1C0E5448009772C7 /* Options.plist in Resources */ = {isa = PBXBuildFile; fileRef = F8D7E68A1C0E5448009772C7 /* Options.plist */; };
 		F8D7E68D1C0F3E7C009772C7 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8D7E68C1C0F3E7C009772C7 /* Constants.swift */; };
-		FB2640283882B67850221F04 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B6D92F14FC681812FC7B7E4D /* Pods.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		16053C1CE6D6CCA6FDE715D2 /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
-		84275FE9D9333421DA8929C2 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		5B0E9C88BC71528C89717341 /* Pods_LastManStanton.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LastManStanton.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B6D92F14FC681812FC7B7E4D /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		CB3045FDC30A06AA2A13D6C9 /* Pods-LastManStanton.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LastManStanton.debug.xcconfig"; path = "Pods/Target Support Files/Pods-LastManStanton/Pods-LastManStanton.debug.xcconfig"; sourceTree = "<group>"; };
+		E1F6ECF0B9309F21E2004050 /* Pods-LastManStanton.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LastManStanton.release.xcconfig"; path = "Pods/Target Support Files/Pods-LastManStanton/Pods-LastManStanton.release.xcconfig"; sourceTree = "<group>"; };
 		F86FD22A1C10E70A00E0DBCE /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		F86FD22C1C10E8E900E0DBCE /* Formatters.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Formatters.swift; sourceTree = "<group>"; };
 		F86FD22E1C10EA5600E0DBCE /* String+Comparison.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Comparison.swift"; sourceTree = "<group>"; };
@@ -59,7 +60,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FB2640283882B67850221F04 /* Pods.framework in Frameworks */,
+				7FDE15437816FF0E1D35980B /* Pods_LastManStanton.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -70,15 +71,16 @@
 			isa = PBXGroup;
 			children = (
 				B6D92F14FC681812FC7B7E4D /* Pods.framework */,
+				5B0E9C88BC71528C89717341 /* Pods_LastManStanton.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		82937BB843134C7898FFAC50 /* Pods */ = {
+		D654BA42C12D2E7F8BF721E9 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				84275FE9D9333421DA8929C2 /* Pods.debug.xcconfig */,
-				16053C1CE6D6CCA6FDE715D2 /* Pods.release.xcconfig */,
+				CB3045FDC30A06AA2A13D6C9 /* Pods-LastManStanton.debug.xcconfig */,
+				E1F6ECF0B9309F21E2004050 /* Pods-LastManStanton.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -89,7 +91,7 @@
 				F8A2558C1BF3D2F90045C482 /* LastManStanton */,
 				F8A2558B1BF3D2F90045C482 /* Products */,
 				4C99671BCEE159D26BB7958B /* Frameworks */,
-				82937BB843134C7898FFAC50 /* Pods */,
+				D654BA42C12D2E7F8BF721E9 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -158,11 +160,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = F8A2559C1BF3D2F90045C482 /* Build configuration list for PBXNativeTarget "LastManStanton" */;
 			buildPhases = (
+				6BD7975FA3F50949E40054E1 /* [CP] Check Pods Manifest.lock */,
 				F8A255861BF3D2F90045C482 /* Sources */,
 				F8A255871BF3D2F90045C482 /* Frameworks */,
 				F8A255881BF3D2F90045C482 /* Resources */,
-				CDF0D45A80AB7680DE3F8550 /* Embed Pods Frameworks */,
 				F8A0A8811C9455A600FBAB87 /* ShellScript */,
+				BEB2A6DB59D185E72D663F4F /* [CP] Embed Pods Frameworks */,
+				F40E2372BDD1DECBBF20A892 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -185,7 +189,7 @@
 				TargetAttributes = {
 					F8A255891BF3D2F90045C482 = {
 						CreatedOnToolsVersion = 7.1.1;
-						DevelopmentTeam = WBN229NZM2;
+						LastSwiftMigration = 0830;
 					};
 				};
 			};
@@ -223,19 +227,61 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		CDF0D45A80AB7680DE3F8550 /* Embed Pods Frameworks */ = {
+		6BD7975FA3F50949E40054E1 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-LastManStanton-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		BEB2A6DB59D185E72D663F4F /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-LastManStanton/Pods-LastManStanton-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/AlamofireObjectMapper/AlamofireObjectMapper.framework",
+				"${BUILT_PRODUCTS_DIR}/ObjectMapper/ObjectMapper.framework",
+				"${BUILT_PRODUCTS_DIR}/ReachabilitySwift/ReachabilitySwift.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AlamofireObjectMapper.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ObjectMapper.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ReachabilitySwift.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-LastManStanton/Pods-LastManStanton-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F40E2372BDD1DECBBF20A892 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
 			);
-			name = "Embed Pods Frameworks";
+			name = "[CP] Copy Pods Resources";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-LastManStanton/Pods-LastManStanton-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		F8A0A8811C9455A600FBAB87 /* ShellScript */ = {
@@ -381,31 +427,35 @@
 		};
 		F8A2559D1BF3D2F90045C482 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 84275FE9D9333421DA8929C2 /* Pods.debug.xcconfig */;
+			baseConfigurationReference = CB3045FDC30A06AA2A13D6C9 /* Pods-LastManStanton.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = LastManStanton/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.mts.LastManStanton;
 				PRODUCT_NAME = LastMan;
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
 		F8A2559E1BF3D2F90045C482 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 16053C1CE6D6CCA6FDE715D2 /* Pods.release.xcconfig */;
+			baseConfigurationReference = E1F6ECF0B9309F21E2004050 /* Pods-LastManStanton.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = LastManStanton/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.mts.LastManStanton;
 				PRODUCT_NAME = LastMan;
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;

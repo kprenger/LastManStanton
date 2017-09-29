@@ -16,20 +16,20 @@ class Constants: NSObject {
     static let fuzzySearchLevelString = "fuzzySearchLevel"
     static let dummyMovieTitle = "ThisIsADummyMovieNotToBeUsed"
     
-    static let dateTransform = TransformOf<NSDate, String>(fromJSON: { (value: String?) -> NSDate? in
-        let dateFormatter = NSDateFormatter()
+    static let dateTransform = TransformOf<Date, String>(fromJSON: { (value: String?) -> Date? in
+        let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
         
         if let value = value {
-            return dateFormatter.dateFromString(value)
+            return dateFormatter.date(from: value)
         }
         return nil
-        }, toJSON: { (value: NSDate?) -> String? in
+        }, toJSON: { (value: Date?) -> String? in
             if let value = value {
-                let dateFormatter = NSDateFormatter()
+                let dateFormatter = DateFormatter()
                 dateFormatter.dateFormat = "yyyy-MM-dd"
                 
-                return dateFormatter.stringFromDate(value)
+                return dateFormatter.string(from: value)
             }
             return nil
     })

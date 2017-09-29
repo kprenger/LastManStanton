@@ -57,11 +57,11 @@ class OptionsInfoViewController: UIViewController {
             
             updateLabels()
         } else {
-            let build = NSBundle.mainBundle().infoDictionary!["CFBundleVersion"]
-            let version = NSBundle.mainBundle().infoDictionary!["CFBundleShortVersionString"]
+            let build = Bundle.main.infoDictionary!["CFBundleVersion"]
+            let version = Bundle.main.infoDictionary!["CFBundleShortVersionString"]
             versionLabel.text = "Version: \(version!) (\(build!))"
             
-            Answers.logContentViewWithName("Info View", contentType: "Info", contentId: "info-1", customAttributes: nil)
+            Answers.logContentView(withName: "Info View", contentType: "Info", contentId: "info-1", customAttributes: nil)
         }
     }
     
@@ -76,19 +76,19 @@ class OptionsInfoViewController: UIViewController {
     
     //MARK: - Steppers touched
     
-    @IBAction func numberOfPlayersChanged(sender: UIStepper) {
+    @IBAction func numberOfPlayersChanged(_ sender: UIStepper) {
         numberOfPlayers = Int(sender.value)
         updateLabels()
         PListUtility.sharedInstance.writeToPlist(Constants.numberOfPlayersString, value: numberOfPlayers)
     }
     
-    @IBAction func guessTimeLimitChanged(sender: UIStepper) {
+    @IBAction func guessTimeLimitChanged(_ sender: UIStepper) {
         guessTimeLimit = Int(sender.value)
         updateLabels()
         PListUtility.sharedInstance.writeToPlist(Constants.guessTimeLimitString, value: guessTimeLimit)
     }
     
-    @IBAction func fuzzySearchLevelChanged(sender: UIStepper) {
+    @IBAction func fuzzySearchLevelChanged(_ sender: UIStepper) {
         fuzzySearchLevel = Int(sender.value)
         updateLabels()
         PListUtility.sharedInstance.writeToPlist(Constants.fuzzySearchLevelString, value: fuzzySearchLevel)
@@ -96,8 +96,8 @@ class OptionsInfoViewController: UIViewController {
     
     //MARK: - Close button touched
     
-    @IBAction func closeButtonTouched(sender: AnyObject) {
-        dismissViewControllerAnimated(true, completion: {
+    @IBAction func closeButtonTouched(_ sender: AnyObject) {
+        dismiss(animated: true, completion: {
             if let delegate = self.delegate {
                 delegate.optionsClosed()
             }
@@ -109,6 +109,6 @@ class OptionsInfoViewController: UIViewController {
             viewType = "Options View"
         }
         
-        Answers.logCustomEventWithName("Button Press", customAttributes: ["buttonType":"Close", "closedView":viewType])
+        Answers.logCustomEvent(withName: "Button Press", customAttributes: ["buttonType":"Close", "closedView":viewType])
     }
 }

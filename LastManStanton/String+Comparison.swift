@@ -14,23 +14,23 @@ extension String {
     
     var removePunctuation: String {
         get {
-            return self.decomposedStringWithCanonicalMapping.componentsSeparatedByCharactersInSet(NSCharacterSet.alphanumericCharacterSet().invertedSet).joinWithSeparator("")
+            return self.decomposedStringWithCanonicalMapping.components(separatedBy: CharacterSet.alphanumerics.inverted).joined(separator: "")
         }
     }
     
     var stripThe: String {
         get {
-            let wordsMinusThe = self.splitIntoWords().filter({ $0.lowercaseString != "the" })
-            return wordsMinusThe.joinWithSeparator("")
+            let wordsMinusThe = self.splitIntoWords().filter({ $0.lowercased() != "the" })
+            return wordsMinusThe.joined(separator: "")
         }
     }
     
     func splitIntoWords() -> [String] {
         
-        let range = Range<String.Index>(start: self.startIndex, end: self.endIndex)
+        let range = self.characters.startIndex ..< self.characters.endIndex
         var words = [String]()
         
-        self.enumerateSubstringsInRange(range, options: NSStringEnumerationOptions.ByWords) { (substring, _, _, _) -> () in
+        self.enumerateSubstrings(in: range, options: NSString.EnumerationOptions.byWords) { (substring, _, _, _) -> () in
             words.append(substring!)
         }
         
@@ -41,13 +41,13 @@ extension String {
     
     //Pulled from this gist: https://gist.github.com/bgreenlee/52d93a1d8fa1b8c1f38b
     
-    func min(numbers: Int...) -> Int {
-        return numbers.reduce(numbers[0], combine: {$0 < $1 ? $0 : $1})
+    func min(_ numbers: Int...) -> Int {
+        return numbers.reduce(numbers[0], {$0 < $1 ? $0 : $1})
     }
     
     //If Levenshtein is <5, then the strings are close enough
     //
-    func levenshtein(comparedString: String) -> Int {
+    func levenshtein(_ comparedString: String) -> Int {
         // create character arrays
         let a = Array(self.characters)
         let b = Array(comparedString.characters)
@@ -55,7 +55,7 @@ extension String {
         // initialize matrix of size |a|+1 * |b|+1 to zero
         var dist = [[Int]]()
         for _ in 0...a.count {
-            dist.append([Int](count: b.count + 1, repeatedValue: 0))
+            dist.append([Int](repeating: 0, count: b.count + 1))
         }
         
         // 'a' prefixes can be transformed into empty string by deleting every char
@@ -85,7 +85,7 @@ extension String {
         return dist[a.count][b.count]
     }
     
-    func fuzzyCompare(comparedString: String, fuzzySearchLevel: Int) -> Bool {
+    func fuzzyCompare(_ comparedString: String, fuzzySearchLevel: Int) -> Bool {
         
         let levenshteinCompareValue = self.characters.count / 6
         
@@ -100,9 +100,9 @@ extension String {
             case 2:
                 return self.removePunctuation == comparedString.removePunctuation
             case 1:
-                return self.stripThe.removePunctuation.lowercaseString == comparedString.stripThe.removePunctuation.lowercaseString
+                return self.stripThe.removePunctuation.lowercased() == comparedString.stripThe.removePunctuation.lowercased()
             case 0:
-                return self.stripThe.removePunctuation.lowercaseString.levenshtein(comparedString.stripThe.removePunctuation.lowercaseString) <= levenshteinCompareValue
+                return self.stripThe.removePunctuation.lowercased().levenshtein(comparedString.stripThe.removePunctuation.lowercased()) <= levenshteinCompareValue
             default:
                 return self == comparedString
         }
