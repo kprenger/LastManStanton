@@ -234,7 +234,7 @@ class MovieListViewController: UIViewController {
         RunLoop.current.add(timer, forMode: RunLoopMode.commonModes)
     }
     
-    func timeIncrement() {
+    @objc func timeIncrement() {
         currentTime -= 1
         if (currentTime <= 0) {
             timeExpired()
