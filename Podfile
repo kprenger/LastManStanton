@@ -1,15 +1,12 @@
-source 'https://github.com/CocoaPods/Specs.git'
 platform :ios, '8.0'
 use_frameworks!
 
-pod 'Alamofire', '~> 3.0'
-pod 'ObjectMapper', '~> 1.0'
-pod 'AlamofireObjectMapper', '~> 2.0'
-pod 'Fabric'
-pod 'Crashlytics'
-pod 'ReachabilitySwift'
-
-post_install do | installer |
-  require 'fileutils'
-  FileUtils.cp_r('Pods/Target Support Files/Pods/Pods-Acknowledgements.plist', 'LastManStanton/Settings.bundle/Acknowledgements.plist', :remove_destination => true)
+target 'LastManStanton' do
+  pod 'Alamofire'
+  pod 'ObjectMapper'
+  pod 'AlamofireObjectMapper'
+  pod 'Fabric'
+  pod 'Crashlytics'
+  pod 'ReachabilitySwift'
 end
+

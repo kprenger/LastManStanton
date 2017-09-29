@@ -32,7 +32,7 @@ class MovieListViewController: UIViewController {
     var currentPlayer = 1
     var currentTime = 0
     
-    var timer = NSTimer()
+    var timer = Timer()
     
     @IBOutlet weak var movieTableView: UITableView!
     @IBOutlet weak var foundMoviesLabel: UILabel!
@@ -64,8 +64,8 @@ class MovieListViewController: UIViewController {
         
         APIManager.sharedInstance.getMoviesForPerson(selectedPerson.id!, completion: { (movieArray) -> Void in
             self.spinner.stopAnimating()
-            self.movieArray = movieArray as! [Movie]
-            self.allMovieArray = movieArray as! [Movie]
+            self.movieArray = movieArray
+            self.allMovieArray = movieArray
             
             if (self.movieArray.count == 0) {
                 self.showNoDataAlert()
@@ -83,28 +83,28 @@ class MovieListViewController: UIViewController {
     
     //MARK: - Game functions
     
-    func correctAnswer(guessedMovie: Movie) {
+    func correctAnswer(_ guessedMovie: Movie) {
         someoneGuessedCorrect = true
         playersInGame[currentPlayer - 1] = true
         
         incrementPlayer()
         
-        correctGuesses.insert(guessedMovie, atIndex: 0)
+        correctGuesses.insert(guessedMovie, at: 0)
         
-        if let index = movieArray.indexOf({ $0.id == guessedMovie.id }) {
-            movieArray.removeAtIndex(index)
+        if let index = movieArray.index(where: { $0.id == guessedMovie.id }) {
+            movieArray.remove(at: index)
         }
         
         if (!gameOver && movieArray.count > 0) {
-            showGuessResultAlert(GuessType.Correct, playerNumber: currentPlayer, clickedOK: {self.startTimer()})
+            showGuessResultAlert(GuessType.correct, playerNumber: currentPlayer, clickedOK: {self.startTimer()})
         } else if (movieArray.count == 0) {
             showMovieMasterAlert(selectedPerson.name!, clickedStartOver: { () -> Void in
-                self.performSegueWithIdentifier(startOverSegueID, sender: self)
+                self.performSegue(withIdentifier: startOverSegueID, sender: self)
                 
-                Answers.logCustomEventWithName("Button Press", customAttributes: ["buttonType":"Start Over"])
+                Answers.logCustomEvent(withName: "Button Press", customAttributes: ["buttonType":"Start Over"])
             })
             
-            Answers.logLevelEnd("Finish Game", score: correctGuesses.count, success: true, customAttributes: ["actorName":selectedPerson.name!])
+            Answers.logLevelEnd("Finish Game", score: correctGuesses.count as NSNumber, success: true, customAttributes: ["actorName":selectedPerson.name!])
             
             gameOver = true
         }
@@ -112,9 +112,9 @@ class MovieListViewController: UIViewController {
         updateMovieTable()
     }
     
-    func incorrectAnswer(isTimeExpired: Bool) {
-        let guessType = (isTimeExpired ? GuessType.TimeUp : GuessType.Incorrect)
-
+    func incorrectAnswer(_ isTimeExpired: Bool) {
+        let guessType = (isTimeExpired ? GuessType.timeUp : GuessType.incorrect)
+        
         playersInGame[currentPlayer - 1] = false
         incrementPlayer()
         
@@ -142,48 +142,48 @@ class MovieListViewController: UIViewController {
             timer.invalidate()
             var winningPlayer = 0
             
-            if let playerIndex = playersInGame.indexOf(true) {
+            if let playerIndex = playersInGame.index(of: true) {
                 winningPlayer = playerIndex + 1
             }
             
             showEndGameAlert(winningPlayer, someoneGuessedCorrect: someoneGuessedCorrect,
-                clickedShowAnswers: {
-                    self.guessButton.userInteractionEnabled = false
-                    self.guessButton.alpha = 0.3
-                    self.guessTextField.userInteractionEnabled = false
-                    self.guessTextField.alpha = 0.3
-                    self.correctGuesses = self.allMovieArray.sort({ $0.title < $1.title })
-                    self.movieArray = [Movie]()
-                    self.movieTableView.reloadData()
-                    
-                    Answers.logCustomEventWithName("Button Press", customAttributes: ["buttonType":"Show Answers"])
-                },
-                clickedRedo:  {
-                    self.correctGuesses = [Movie]()
-                    self.movieArray = self.allMovieArray
-                    self.movieTableView.reloadData()
-                    
-                    self.gameOver = false
-                    self.someoneGuessedCorrect = false
-                    self.playersInGame = [Bool]()
-                    for _ in 1...self.numberOfPlayers {
-                        self.playersInGame.append(true)
-                    }
-                    self.currentPlayer = self.numberOfPlayers
-                    self.incrementPlayer()
-                    self.madeItThroughRound = false
-                    
-                    self.showStartGameAlert({self.startTimer()})
-                    
-                    Answers.logCustomEventWithName("Button Press", customAttributes: ["buttonType":"Redo Person", "actorName":self.selectedPerson.name!])
-                },
-                clickedStartOver: {
-                    self.performSegueWithIdentifier(startOverSegueID, sender: self)
-                    
-                    Answers.logCustomEventWithName("Button Press", customAttributes: ["buttonType":"Start Over"])
+                             clickedShowAnswers: {
+                                self.guessButton.isUserInteractionEnabled = false
+                                self.guessButton.alpha = 0.3
+                                self.guessTextField.isUserInteractionEnabled = false
+                                self.guessTextField.alpha = 0.3
+                                self.correctGuesses = self.allMovieArray.sorted(by: { $0.title! < $1.title! })
+                                self.movieArray = [Movie]()
+                                self.movieTableView.reloadData()
+                                
+                                Answers.logCustomEvent(withName: "Button Press", customAttributes: ["buttonType":"Show Answers"])
+            },
+                             clickedRedo:  {
+                                self.correctGuesses = [Movie]()
+                                self.movieArray = self.allMovieArray
+                                self.movieTableView.reloadData()
+                                
+                                self.gameOver = false
+                                self.someoneGuessedCorrect = false
+                                self.playersInGame = [Bool]()
+                                for _ in 1...self.numberOfPlayers {
+                                    self.playersInGame.append(true)
+                                }
+                                self.currentPlayer = self.numberOfPlayers
+                                self.incrementPlayer()
+                                self.madeItThroughRound = false
+                                
+                                self.showStartGameAlert({self.startTimer()})
+                                
+                                Answers.logCustomEvent(withName: "Button Press", customAttributes: ["buttonType":"Redo Person", "actorName":self.selectedPerson.name!])
+            },
+                             clickedStartOver: {
+                                self.performSegue(withIdentifier: startOverSegueID, sender: self)
+                                
+                                Answers.logCustomEvent(withName: "Button Press", customAttributes: ["buttonType":"Start Over"])
             })
             
-            Answers.logLevelEnd("Finish Game", score: correctGuesses.count, success: false, customAttributes: ["actorName":selectedPerson.name!])
+            Answers.logLevelEnd("Finish Game", score: correctGuesses.count as NSNumber, success: false, customAttributes: ["actorName":selectedPerson.name!])
             gameOver = true
             return
         }
@@ -193,9 +193,9 @@ class MovieListViewController: UIViewController {
         whoseTurnLabel.text = "Player " + String(currentPlayer) + "'s turn"
     }
     
-    func checkGuessInList(guess: String) -> Movie? {
+    func checkGuessInList(_ guess: String) -> Movie? {
         if (guess.removePunctuation.isEmpty) {
-            self.showGuessResultAlert(GuessType.BlankGuess, playerNumber: 1, clickedOK: {})
+            self.showGuessResultAlert(GuessType.blankGuess, playerNumber: 1, clickedOK: {})
             
             return Movie(dummyMovie: true)
         }
@@ -206,7 +206,7 @@ class MovieListViewController: UIViewController {
                     if (!correctGuesses.contains{ $0.id == movie.id }) {
                         return movie
                     } else {
-                        self.showGuessResultAlert(GuessType.AlreadyGuessed, playerNumber: 1, clickedOK: {})
+                        self.showGuessResultAlert(GuessType.alreadyGuessed, playerNumber: 1, clickedOK: {})
                         
                         return Movie(dummyMovie: true)
                     }
@@ -219,10 +219,10 @@ class MovieListViewController: UIViewController {
     
     func updateMovieTable() {
         movieTableView.beginUpdates()
-        movieTableView.deleteRowsAtIndexPaths([NSIndexPath(forRow: 0, inSection: 1)], withRowAnimation: .Left)
-        movieTableView.insertRowsAtIndexPaths([NSIndexPath(forRow: 0, inSection: 0)], withRowAnimation: .Left)
-        movieTableView.headerViewForSection(0)?.textLabel?.text = tableView(movieTableView, titleForHeaderInSection: 0)
-        movieTableView.headerViewForSection(1)?.textLabel?.text = tableView(movieTableView, titleForHeaderInSection: 1)
+        movieTableView.deleteRows(at: [IndexPath(row: 0, section: 1)], with: .left)
+        movieTableView.insertRows(at: [IndexPath(row: 0, section: 0)], with: .left)
+        movieTableView.headerView(forSection: 0)?.textLabel?.text = tableView(movieTableView, titleForHeaderInSection: 0)
+        movieTableView.headerView(forSection: 1)?.textLabel?.text = tableView(movieTableView, titleForHeaderInSection: 1)
         movieTableView.endUpdates()
     }
     
@@ -230,8 +230,8 @@ class MovieListViewController: UIViewController {
     
     func startTimer() {
         timer.invalidate()
-        timer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: "timeIncrement", userInfo: nil, repeats: true)
-        NSRunLoop.currentRunLoop().addTimer(timer, forMode: NSRunLoopCommonModes)
+        timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(MovieListViewController.timeIncrement), userInfo: nil, repeats: true)
+        RunLoop.current.add(timer, forMode: RunLoopMode.commonModes)
     }
     
     func timeIncrement() {
@@ -250,13 +250,13 @@ class MovieListViewController: UIViewController {
     
     //MARK: - Button touches
     
-    @IBAction func closeButtonTouched(sender: AnyObject) {
+    @IBAction func closeButtonTouched(_ sender: AnyObject) {
         timer.invalidate()
         
-        Answers.logCustomEventWithName("Button Press", customAttributes: ["buttonType":"Close", "closedView":"Movie List"])
+        Answers.logCustomEvent(withName: "Button Press", customAttributes: ["buttonType":"Close", "closedView":"Movie List"])
     }
     
-    @IBAction func guessButtonTouched(sender: AnyObject) {
+    @IBAction func guessButtonTouched(_ sender: AnyObject) {
         if let guessedMovie = checkGuessInList(guessTextField.text!) {
             if (guessedMovie.title != Constants.dummyMovieTitle) {
                 timer.invalidate()
@@ -271,7 +271,7 @@ class MovieListViewController: UIViewController {
         guessTextField.text! = ""
     }
     
-    @IBAction func viewTapped(sender: AnyObject) {
+    @IBAction func viewTapped(_ sender: AnyObject) {
         guessTextField.resignFirstResponder()
     }
 }
@@ -279,36 +279,36 @@ class MovieListViewController: UIViewController {
 //MARK: - TableView Data Source
 
 extension MovieListViewController: UITableViewDataSource {
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return 2
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
-            case 0:
-                return correctGuesses.count
+        case 0:
+            return correctGuesses.count
             
-            case 1:
-                return movieArray.count
+        case 1:
+            return movieArray.count
             
-            default:
-                return 0
+        default:
+            return 0
         }
     }
     
-    func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         var returnString = ""
         
         switch section {
-            case 0:
-                returnString = "Guessed: " + String(correctGuesses.count)
+        case 0:
+            returnString = "Guessed: " + String(correctGuesses.count)
             
-            case 1:
-                returnString = "Not Guessed: " + String(movieArray.count)
+        case 1:
+            returnString = "Not Guessed: " + String(movieArray.count)
             
-            default:
-                return ""
-            }
+        default:
+            return ""
+        }
         
         if (allMovieArray.count != 1) {
             returnString += " of " + String(allMovieArray.count) + " movies"
@@ -319,25 +319,25 @@ extension MovieListViewController: UITableViewDataSource {
         return returnString
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         switch indexPath.section {
-            case 0:
-                let cell = tableView.dequeueReusableCellWithIdentifier(guessedMovieCellID)!
-                let movie = correctGuesses[indexPath.row]
-                cell.textLabel!.text = movie.title
-                
-                return cell
+        case 0:
+            let cell = tableView.dequeueReusableCell(withIdentifier: guessedMovieCellID)!
+            let movie = correctGuesses[indexPath.row]
+            cell.textLabel!.text = movie.title
             
-            default:
-                let cell = tableView.dequeueReusableCellWithIdentifier(notGuessedMovieCellID)!
-                cell.contentView.layer.borderColor = UIColor.blackColor().CGColor
-                cell.contentView.layer.borderWidth = 2.0
-                cell.contentView.layer.cornerRadius = 10.0
-                cell.textLabel!.text = "???"
-                cell.textLabel!.textAlignment = .Center
-                
-                return cell
+            return cell
+            
+        default:
+            let cell = tableView.dequeueReusableCell(withIdentifier: notGuessedMovieCellID)!
+            cell.contentView.layer.borderColor = UIColor.black.cgColor
+            cell.contentView.layer.borderWidth = 2.0
+            cell.contentView.layer.cornerRadius = 10.0
+            cell.textLabel!.text = "???"
+            cell.textLabel!.textAlignment = .center
+            
+            return cell
         }
     }
 }
@@ -351,7 +351,7 @@ extension MovieListViewController: UITableViewDelegate {
 //MARK: - TextField delegate
 
 extension MovieListViewController: UITextFieldDelegate {
-    func textFieldShouldReturn(textField: UITextField) -> Bool {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         guessTextField.resignFirstResponder()
         guessButtonTouched(self)
         

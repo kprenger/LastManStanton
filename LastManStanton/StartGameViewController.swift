@@ -18,22 +18,20 @@ class StartGameViewController: UIViewController {
     
     var selectedPersonID = 85
     
-    @IBAction func startOver(segue: UIStoryboardSegue) {
+    @IBAction func startOver(_ segue: UIStoryboardSegue) {
         
     }
     
-    @IBAction func startGameButtonTouched(sender: AnyObject) {
-        let reachability: Reachability
-        do {
-            reachability = try Reachability.reachabilityForInternetConnection()
-            
-            if (reachability.currentReachabilityStatus == .NotReachable) {
-                self.showNoNetworkAlert({})
-            } else {
-                performSegueWithIdentifier(knowNameSegueID, sender: self)
-            }
-        } catch {
+    @IBAction func startGameButtonTouched(_ sender: AnyObject) {
+        guard let reachability = Reachability() else {
             self.showNoNetworkAlert({})
+            return
+        }
+        
+        if (reachability.currentReachabilityStatus == .notReachable) {
+            self.showNoNetworkAlert({})
+        } else {
+            performSegue(withIdentifier: knowNameSegueID, sender: self)
         }
     }
     
@@ -41,21 +39,21 @@ class StartGameViewController: UIViewController {
         super.viewDidLoad()
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if (segue.identifier == knowNameSegueID) {
-            let actorController = segue.destinationViewController as! ActorSearchViewController
+            let actorController = segue.destination as! ActorSearchViewController
             actorController.isSuggestion = false
         } else if (segue.identifier == needSuggestionSegueID) {
-            let actorController = segue.destinationViewController as! ActorSearchViewController
+            let actorController = segue.destination as! ActorSearchViewController
             actorController.isSuggestion = true
         } else if (segue.identifier == optionsSegueID) {
-            let optionsInfoController = segue.destinationViewController as! OptionsInfoViewController
+            let optionsInfoController = segue.destination as! OptionsInfoViewController
             optionsInfoController.isOptions = true
         } else if (segue.identifier == infoSegueID) {
-            let optionsInfoController = segue.destinationViewController as! OptionsInfoViewController
+            let optionsInfoController = segue.destination as! OptionsInfoViewController
             optionsInfoController.isOptions = false
         } else {
-            super.prepareForSegue(segue, sender: sender)
+            super.prepare(for: segue, sender: sender)
         }
     }
 }

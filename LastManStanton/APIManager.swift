@@ -14,7 +14,7 @@ import AlamofireObjectMapper
 class APIManager: NSObject {
     
     static let sharedInstance = APIManager()
-    let plist = NSBundle.mainBundle().infoDictionary
+    let plist = Bundle.main.infoDictionary
     
     let host = "https://api.themoviedb.org/"
     let apiVersion = "3"
@@ -27,32 +27,32 @@ class APIManager: NSObject {
         apiKey = plist!["tmdbAPIKey"] as! String
     }
     
-    func getMoviesForPerson(personID: Int, completion: (movieArray: NSArray) -> Void) {
+    func getMoviesForPerson(_ personID: Int, completion: @escaping (_ movieArray: [Movie]) -> Void) {
         let URL = host + apiVersion + personRoute + String(personID) + "/movie_credits"
         
-        Alamofire.request(.GET, URL, parameters: ["api_key": apiKey])
-            .responseObject{(response: Response<PersonMovieCredits, NSError>) in
+        Alamofire.request(URL, method: .get, parameters: ["api_key": apiKey])
+            .responseObject{(response: DataResponse<PersonMovieCredits>) in
                 
                 var movieArray = [Movie]()
                 
                 if let person = response.result.value {
-                    movieArray.appendContentsOf(person.cast!)
-                    movieArray.appendContentsOf(person.crew!.filter({$0.job == "Director"}))
+                    movieArray.append(contentsOf: person.cast!)
+                    movieArray.append(contentsOf: person.crew!.filter({$0.job == "Director"}))
                     
                     movieArray = Array(Set<Movie>(movieArray))
                 }
                 
                 //Only return movies that have been released
                 //
-                completion(movieArray: movieArray.filter({$0.releaseDate?.compare(NSDate()) != NSComparisonResult.OrderedDescending}))
+                completion(movieArray.filter({$0.releaseDate?.compare(Date()) != ComparisonResult.orderedDescending}))
         }
     }
     
-    func getPersonFromQuery(nameSearch: String, completion: (personArray: NSArray) -> Void) {
+    func getPersonFromQuery(_ nameSearch: String, completion: @escaping (_ personArray: [Person]) -> Void) {
         let URL = host + apiVersion + searchRoute + "person"
         
-        Alamofire.request(.GET, URL, parameters: ["query": nameSearch, "api_key": apiKey])
-            .responseObject{(response: Response<PersonSearchResult, NSError>) in
+        Alamofire.request(URL, method: .get, parameters: ["query": nameSearch, "api_key": apiKey])
+            .responseObject{(response: DataResponse<PersonSearchResult>) in
                 
                 var personArray = [Person]()
                 
@@ -62,15 +62,15 @@ class APIManager: NSObject {
                     }
                 }
                 
-                completion(personArray: personArray)
+                completion(personArray)
         }
     }
     
-    func getPopularPersons(completion: (personArray: NSArray) -> Void) {
+    func getPopularPersons(_ completion: @escaping (_ personArray: [Person]) -> Void) {
         let URL = host + apiVersion + personRoute + "popular"
         
-        Alamofire.request(.GET, URL, parameters: ["api_key": apiKey])
-            .responseObject{(response: Response<PersonSearchResult, NSError>) in
+        Alamofire.request(URL, method: .get, parameters: ["api_key": apiKey])
+            .responseObject{(response: DataResponse<PersonSearchResult>) in
                 
                 var personArray = [Person]()
                 
@@ -80,12 +80,12 @@ class APIManager: NSObject {
                     }
                 }
                 
-                completion(personArray: personArray)
+                completion(personArray)
         }
     }
     
-    func filterPersonResults(resultArray: [Person]) -> NSArray {
-        let personsThatAreKnown = resultArray.filter({ $0.knownFor?.count > 2 })
-        return personsThatAreKnown.filter({ $0.knownFor?.filter({ $0.mediaType == "movie" }).count > 0 })
+    func filterPersonResults(_ resultArray: [Person]) -> NSArray {
+        let personsThatAreKnown = resultArray.filter({ ($0.knownFor?.count)! > 2 })
+        return personsThatAreKnown.filter({ ($0.knownFor?.filter({ $0.mediaType! == "movie" }).count)! > 0 }) as NSArray
     }
 }

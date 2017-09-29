@@ -10,7 +10,7 @@ import UIKit
 
 class Formatters: NSObject {
     
-    class func timeFormat(time: Int) -> String {
+    class func timeFormat(_ time: Int) -> String {
         let minutes = time / 60
         let seconds = time % 60
         

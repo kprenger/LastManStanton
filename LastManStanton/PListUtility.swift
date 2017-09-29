@@ -14,18 +14,18 @@ class PListUtility: NSObject {
     
     func getPlist () -> NSDictionary {
         
-        let rootPath = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as String
-        let filePath = NSURL(string: rootPath)!.URLByAppendingPathComponent("Options.plist").absoluteString
-        let fileManager = NSFileManager.defaultManager()
+        let rootPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as String
+        let filePath = URL(string: rootPath)!.appendingPathComponent("Options.plist").absoluteString
+        let fileManager = FileManager.default
         
-        if (!(fileManager.fileExistsAtPath(filePath)))
+        if (!(fileManager.fileExists(atPath: filePath)))
         {
-            let bundle = NSBundle.mainBundle().pathForResource("Options", ofType: "plist")!
+            let bundle = Bundle.main.path(forResource: "Options", ofType: "plist")!
             
             do {
-                try fileManager.copyItemAtPath(bundle as String, toPath: filePath)
+                try fileManager.copyItem(atPath: bundle as String, toPath: filePath)
             } catch let error as NSError {
-                error.description
+                print(error.description)
             }
         }
         
@@ -33,14 +33,14 @@ class PListUtility: NSObject {
         return plist!
     }
     
-    func writeToPlist (key: String, value: Int) {
+    func writeToPlist (_ key: String, value: Int) {
         
-        let rootPath = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as String
-        let filePath = NSURL(string: rootPath)!.URLByAppendingPathComponent("Options.plist").absoluteString
+        let rootPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as String
+        let filePath = URL(string: rootPath)!.appendingPathComponent("Options.plist").absoluteString
         let plist = NSMutableDictionary(contentsOfFile: filePath)
         
         plist?.setValue(value, forKey: key)
-        plist?.writeToFile(filePath, atomically: true)
+        plist?.write(toFile: filePath, atomically: true)
     }
 
 }
