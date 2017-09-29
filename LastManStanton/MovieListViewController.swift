@@ -230,11 +230,14 @@ class MovieListViewController: UIViewController {
     
     func startTimer() {
         timer.invalidate()
-        timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(MovieListViewController.timeIncrement), userInfo: nil, repeats: true)
+        timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { [weak self] _ in
+            self?.timeIncrement()
+        }
+        
         RunLoop.current.add(timer, forMode: RunLoopMode.commonModes)
     }
     
-    @objc func timeIncrement() {
+    func timeIncrement() {
         currentTime -= 1
         if (currentTime <= 0) {
             timeExpired()
